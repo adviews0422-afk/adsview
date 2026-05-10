@@ -1,4 +1,8 @@
 'use client'
+<<<<<<< HEAD
+=======
+import { DASHBOARD_MENU } from '@/utils/data'
+>>>>>>> 67bcb5b4be06976077ff0de132315287ace97e24
 import { LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter, useSelectedLayoutSegment } from 'next/navigation'
@@ -35,7 +39,11 @@ export default function DashboardLayout({ children, toggle }: ProviderProps) {
               </Label>
             </Link>
           </div>
+<<<<<<< HEAD
           {/* {DASHBOARD_MENU.map((menu, index) => (
+=======
+          {DASHBOARD_MENU.map((menu, index) => (
+>>>>>>> 67bcb5b4be06976077ff0de132315287ace97e24
             <div className='flex flex-col' key={index}>
               <Label size={'md'} className='hidden md:block'>
                 {menu.title}
@@ -60,9 +68,15 @@ export default function DashboardLayout({ children, toggle }: ProviderProps) {
                     </Label>
                   </Link>
                 )
+<<<<<<< HEAD
               })} 
             </div>
           ))}*/}
+=======
+              })}
+            </div>
+          ))}
+>>>>>>> 67bcb5b4be06976077ff0de132315287ace97e24
         </div>
       </div>
       <div className='flex col-span-6 md:col-span-4 lg:col-span-4 xl:col-span-5'>{children}</div>
