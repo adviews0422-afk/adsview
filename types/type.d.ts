@@ -31,8 +31,7 @@ export interface ProductCardProps {
 export interface TaskItemCard {
   payout?: string
   href: string
-  category: 
-  
+  category: string
 }
 
 export interface StoreProps {
