@@ -115,8 +115,8 @@ const Header = () => {
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      {ACCOUNT_MENU.map((item) => (
-                        <DropdownMenuItem>
+                      {ACCOUNT_MENU.map((item, index) => (
+                        <DropdownMenuItem key={index}>
                           <Link className='text-decoration-none' href={item.path}>
                             <Label size={'md'} className='px-0'>
                               {item.title}

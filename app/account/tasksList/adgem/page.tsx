@@ -22,7 +22,7 @@ const CpxResearch = () => {
           zIndex: 999999,
         }}
       >
-        Your browser doesn't support iframes
+        Your browser doesnt support iframes
       </iframe>
     </div>
   )

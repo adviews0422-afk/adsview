@@ -15,8 +15,8 @@ const CpxResearch = () => {
     <div className='flex container w-full h-full p-4 flex-col gap-4'>
       <Label size={'lg'}>Tasks</Label>
       <div className='grid grid-cols-3 gap-4'>
-        {taskList?.data?.map((items: any) => (
-          <div className='col-span-1'>
+        {taskList?.data?.map((items: any, index: number) => (
+          <div className={'col-span-1'} key={index}>
             <TaskListItem href={items?.href} category={items?.category} />
           </div>
         ))}

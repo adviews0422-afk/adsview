@@ -23,8 +23,8 @@ function Profile() {
         />
       )}
       <div className='grid grid-cols-12 gap-4'>
-        {PROVIDERS.map((items) => (
-          <div className='col-span-12 md:col-span-4'>
+        {PROVIDERS.map((items, index) => (
+          <div className='col-span-12 md:col-span-4' key={index}>
             <ProductCard
               productName={items.title}
               image={items.image}

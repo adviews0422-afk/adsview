@@ -46,8 +46,8 @@ function Dashboard() {
         )}
       </div>
       {transactionData?.data && <Label size={'lg'}>Recent Transaction</Label>}
-      {transactionData?.data?.map((items: TransactionProps) => (
-        <div className='flex items-center justify-between p-4 rounded-md w-full border'>
+      {transactionData?.data?.map((items: TransactionProps, index: number) => (
+        <div className='flex items-center justify-between p-4 rounded-md w-full border' key={index}>
           <div className='flex flex-col gap-2'>
             <Label size={'sm'}>{items.userId.name}</Label>
             <Label size={'xs'}>{items.userId.email}</Label>
