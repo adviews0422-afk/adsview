@@ -57,7 +57,7 @@ export async function POST(req: Request) {
     await Transaction.create({
       userId: session.user.id,
       type: 'offer',
-      amount: session.user.id,
+      amount: 0,
       sourceId: transId,
       description: 'hilltop',
     })
