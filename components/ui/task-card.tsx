@@ -4,11 +4,18 @@ import { Label } from './label'
 type TaskCardProps = {
   completed: number
   total?: number
+  isClaimed: boolean
   isLoading: boolean
   onClaim?: () => void
 }
 
-const TaskCard = ({ completed, total = 15, isLoading = false, onClaim }: TaskCardProps) => {
+const TaskCard = ({
+  completed,
+  total = 15,
+  isClaimed,
+  isLoading = false,
+  onClaim,
+}: TaskCardProps) => {
   const progress = Math.min((completed / total) * 100, 100)
   const isComplete = completed >= total
 
@@ -29,13 +36,21 @@ const TaskCard = ({ completed, total = 15, isLoading = false, onClaim }: TaskCar
         </div>{' '}
         <Label size={'sm'}>
           {isComplete
-            ? 'All tasks completed! You can now claim your reward 🎉'
+            ? !isClaimed
+              ? 'All tasks completed! You can now claim your reward 🎉'
+              : 'Claimed'
             : `Complete ${total - completed} more task(s) to claim`}
         </Label>
       </div>
 
-      <Button onClick={onClaim} disabled={isComplete || isLoading}>
-        {isComplete ? (!isLoading ? 'Claim Reward' : 'Claiming...') : 'Locked'}
+      <Button onClick={onClaim} disabled={!isComplete || isLoading || isClaimed}>
+        {isComplete
+          ? !isLoading
+            ? isClaimed
+              ? 'Claimed'
+              : 'Claim Reward'
+            : 'Claiming...'
+          : 'Locked'}
       </Button>
     </div>
   )
