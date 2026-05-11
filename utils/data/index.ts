@@ -70,7 +70,7 @@ export const PROVIDERS = [
   {
     title: 'Hilltops',
     description: 'Hilltop',
-    image: '/provider-icons/adgem.png',
+    image: '/provider-icons/hilltops.jpg',
     route:
       'https://gullible-thanks.com/bO3.VQ0IPl3Gp/vUbmm/VQJAZvD_0l3tMSDZM/1WNqTeAexXLsTEcGwYM/zjUB1WMaDHUz',
   },
