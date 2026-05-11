@@ -34,7 +34,7 @@ const TaskCard = ({ completed, total = 15, isLoading = false, onClaim }: TaskCar
         </Label>
       </div>
 
-      <Button onClick={onClaim} disabled={!isComplete || isLoading}>
+      <Button onClick={onClaim} disabled={isComplete || isLoading}>
         {isComplete ? (!isLoading ? 'Claim Reward' : 'Claiming...') : 'Locked'}
       </Button>
     </div>
