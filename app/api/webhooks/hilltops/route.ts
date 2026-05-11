@@ -51,7 +51,7 @@ export async function POST(req: Request) {
       userId: session.user.id,
       transactionId: transId,
       amount: 0,
-      provider: 'hilltop',
+      provider: 'hilltops',
     })
 
     await Transaction.create({

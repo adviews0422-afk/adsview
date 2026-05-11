@@ -2,7 +2,7 @@ import mongoose, { Document, Model } from 'mongoose'
 
 export interface IOfferTransaction extends Document {
   userId: mongoose.Types.ObjectId
-  provider: 'cpx' | 'adgate'
+  provider: 'cpx' | 'adgate' | 'hilltops'
   transactionId: string
   amount: number
   status: 'pending' | 'credited' | 'rejected'
@@ -14,7 +14,7 @@ const offerTransactionSchema = new mongoose.Schema<IOfferTransaction>(
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     provider: {
       type: String,
-      enum: ['cpx', 'adgate'],
+      enum: ['cpx', 'adgate', 'hilltops'],
       required: true,
     },
     transactionId: { type: String, unique: true },
