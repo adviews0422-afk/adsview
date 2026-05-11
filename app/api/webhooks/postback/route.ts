@@ -62,14 +62,6 @@ export async function GET(req: Request) {
       provider: 'cpx',
     })
 
-    await Transaction.create({
-      userId,
-      type: 'offer',
-      amount,
-      sourceId: transId,
-      description: 'cpx',
-    })
-
     return NextResponse.json({ success: true, status: 200 }, { status: 200 })
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 })

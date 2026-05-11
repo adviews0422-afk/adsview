@@ -72,14 +72,6 @@ export async function GET(req: Request) {
       provider: 'adgem',
     })
 
-    await Transaction.create({
-      userId: playerId,
-      type: 'offer',
-      amount: payout || amount,
-      sourceId: appId,
-      description: 'adgem',
-    })
-
     return NextResponse.json({ success: true, status: 200 }, { status: 200 })
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 })

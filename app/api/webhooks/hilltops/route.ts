@@ -54,14 +54,6 @@ export async function POST(req: Request) {
       provider: 'hilltops',
     })
 
-    await Transaction.create({
-      userId: session.user.id,
-      type: 'offer',
-      amount: 0,
-      sourceId: transId,
-      description: 'hilltop',
-    })
-
     return NextResponse.json({ success: true, status: 200 }, { status: 200 })
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 })
