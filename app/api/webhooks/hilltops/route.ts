@@ -22,10 +22,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, message: 'duplicate ignored' })
     }
 
-    if (+status !== 1) {
-      return NextResponse.json({ message: 'invalid status' }, { status: 400 })
-    }
-
     const user = await User.findById(session.user.id)
     if (!user) {
       return NextResponse.json({ message: 'User not found' }, { status: 400 })
