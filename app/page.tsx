@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRightIcon, MoveRight } from 'lucide-react'
 import animationData from '@/public/lottie/coin-stack.json'
 import { Label } from '@/components/ui/label'
+import Ads from '@/components/ui/ads'
 export default function Home() {
   return (
     <div className='w-full flex flex-col justify-center'>
@@ -33,7 +34,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='container my-5'>
+      <Ads />
+      <div className='container my-5 mb-5'>
         <Label size={'xl'}>How Ads View works ?</Label>
         <div className='grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-3 py-2'>
           {HOW_IT_WORKS.map((item: any, index: number) => {
