@@ -7,12 +7,17 @@ import { PROVIDERS } from '@/utils/data'
 import TaskCard from '@/components/ui/task-card'
 import StatsCard from '@/components/ui/stats-card'
 
-import { useGetCurrentTaskQuery, useTaskCompletedMutation } from '@/store/action/taskAction'
+import {
+  useGetCurrentTaskQuery,
+  useHilltopTaskMutation,
+  useTaskCompletedMutation,
+} from '@/store/action/taskAction'
 import { useRouter } from 'next/navigation'
 function Profile() {
   const router = useRouter()
   const [taskCompleted, { isLoading }] = useTaskCompletedMutation({})
   const { data: currentTask, isLoading: isGettingCurrentTask } = useGetCurrentTaskQuery({})
+  const [hilltopTask, { isLoading: isLoadingHilltopTask }] = useHilltopTaskMutation()
   return (
     <div className='flex w-full h-full p-4 flex-col gap-4'>
       {currentTask?.data && (
@@ -28,7 +33,14 @@ function Profile() {
             <ProductCard
               productName={items.title}
               image={items.image}
-              onClick={() => router.push(items.route)}
+              onClick={async () => {
+                if (items.title === 'Hilltops') {
+                  window.open(items.route)
+                  await hilltopTask({})
+                } else {
+                  router.push(items.route)
+                }
+              }}
             />
           </div>
         ))}

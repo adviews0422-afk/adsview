@@ -67,6 +67,14 @@ export const PROVIDERS = [
     image: '/provider-icons/adgem.png',
     route: '/account/tasksList/adgem',
   },
+  {
+    title: 'Hilltops',
+    description: 'Hilltop',
+    image: '/provider-icons/adgem.png',
+    route:
+      'https://gullible-thanks.com/bO3.VQ0IPl3Gp/vUbmm/VQJAZvD_0l3tMSDZM/1WNqTeAexXLsTEcGwYM/zjUB1WMaDHUz',
+  },
+
   // {
   //   title: 'AdscendMedia',
   //   description: 'cpx',

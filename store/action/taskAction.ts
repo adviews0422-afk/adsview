@@ -20,8 +20,18 @@ export const taskApi = apiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
+    hilltopTask: builder.mutation({
+      query: () => ({
+        url: `/api/webhooks/hilltops`,
+        method: 'POST',
+      }),
+    }),
   }),
 })
 
-export const { useGetCpxResearchTaskQuery, useTaskCompletedMutation, useGetCurrentTaskQuery } =
-  taskApi
+export const {
+  useGetCpxResearchTaskQuery,
+  useTaskCompletedMutation,
+  useGetCurrentTaskQuery,
+  useHilltopTaskMutation,
+} = taskApi
