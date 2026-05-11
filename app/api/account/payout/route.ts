@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   }
 
   const amount = fullUnits * unit
-
+  const totalToWithdraw = fullUnits * 20
   try {
     const request = new paypal.payouts.PayoutsPostRequest()
 
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
           recipient_type: 'EMAIL',
           receiver: user.email,
           amount: {
-            value: amount.toFixed(2),
+            value: totalToWithdraw.toFixed(2),
             currency: 'PHP',
           },
           note: 'Thanks for using our platform!',

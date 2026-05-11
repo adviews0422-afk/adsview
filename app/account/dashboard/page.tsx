@@ -89,11 +89,11 @@ function Dashboard() {
                 {Math.floor(profileData?.data?.wallet?.balance / 5000)} x 5000 Coins
               </span>
               <span className='font-semibold text-gray-800'>
-                ₱{Math.floor(profileData?.data?.wallet?.balance / 5000) * 100.0}
+                ₱{Math.floor(profileData?.data?.wallet?.balance / 5000) * 20.0}
               </span>
             </div>
 
-            <div className='mt-2 text-xs text-gray-500'>Exchange rate: 5000 coins = ₱100 PHP</div>
+            <div className='mt-2 text-xs text-gray-500'>Exchange rate: 5000 coins = ₱20 PHP</div>
           </div>
 
           {/* PayPal Email */}
