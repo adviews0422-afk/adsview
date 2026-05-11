@@ -27,6 +27,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Task not yet completed', status: 400 }, { status: 400 })
     }
 
+    if (userTaskLog.isClaimed) {
+      return NextResponse.json({ message: 'Task not yet completed', status: 400 }, { status: 400 })
+    }
+
     user.wallet.balance += 500
     user.wallet.totalEarned += 500
     userTaskLog.isClaimed = true
