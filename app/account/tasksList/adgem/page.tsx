@@ -6,7 +6,7 @@ const CpxResearch = () => {
   return (
     <div className='container w-full h-full'>
       <iframe
-        src={`https://adunits.adgem.com/wall?appid=${process.env.ADGEM_ID}&playerid=${data?.user.id}`}
+        src={`https://adunits.adgem.com/wall?appid=${process.env.NEXT_PUBLIC_ADGEM_ID}&playerid=${data?.user.id}`}
         style={{
           position: 'fixed',
           top: 0,
