@@ -22,6 +22,7 @@ function Profile() {
     <div className='flex w-full h-full p-4 flex-col gap-4'>
       {currentTask?.data && (
         <TaskCard
+          isClaimed={currentTask?.data?.isClaimed}
           completed={currentTask?.data?.count}
           isLoading={isLoading}
           onClaim={async () => await taskCompleted({})}
