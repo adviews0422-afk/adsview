@@ -2,17 +2,7 @@ import { NextAuthMiddlewareOptions, withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
 import { Redis } from '@upstash/redis'
 import { Ratelimit } from '@upstash/ratelimit'
-
-// Redis setup
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-})
-
-const ratelimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(5, '1 m'),
-})
+import { ratelimit } from './lib/redis'
 
 export default withAuth(
   async function middleware(req) {
