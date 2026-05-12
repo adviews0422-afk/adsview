@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button'
 function Referral() {
   const { data } = useSession()
   const [copied, setCopied] = useState(false)
-  const link = process.env.NEXT_PUBLIC_APP_URL + 'auth/login?referral=' + data?.user?.referralCode
+  const link =
+    process.env.NEXT_PUBLIC_APP_URL + 'auth/register?referral=' + data?.user?.referralCode
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(link)
