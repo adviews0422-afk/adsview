@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       await referredUser.save()
 
       await Transaction.create({
-        userId: newUser._id,
+        userId: referredUser._id,
         type: 'referral',
         amount: 50,
       })
