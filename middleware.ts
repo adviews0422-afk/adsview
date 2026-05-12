@@ -20,7 +20,7 @@ export default withAuth(
         return !!token
       },
     },
-  } as NextAuthMiddlewareOptions
+  } as NextAuthMiddlewareOptions,
 )
 
 export const config = {

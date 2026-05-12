@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 
 import StoreProvider from '@/providers/store-provider'
 import Footer from '@/components/shared/footer'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +25,13 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
+        <Script
+          async
+          strategy='afterInteractive'
+          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7785908484017299'
+          crossOrigin='anonymous'
+        />
+
         <StoreProvider>
           <AuthProvider>
             <Header />

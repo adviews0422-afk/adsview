@@ -11,6 +11,7 @@ export interface IUser extends Document {
   password?: string
   referralCode?: string
   referredBy?: string
+  lastActiveAt: Date
   role: 'user' | 'admin' | 'banned'
   provider: 'credentials' | 'google'
 
@@ -75,6 +76,12 @@ const userSchema = new mongoose.Schema<IUser>(
       type: String,
       enum: ['credentials', 'google'],
       default: 'credentials',
+    },
+
+    lastActiveAt: {
+      type: Date,
+      default: Date.now,
+      index: true,
     },
 
     wallet: {

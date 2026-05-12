@@ -20,7 +20,7 @@ const TaskCard = ({
   const isComplete = completed >= total
 
   return (
-    <div className='w-full p-5 rounded-lg border flex flex-col md:flex-row md:justify-center md:items-center gap-4'>
+    <div className='w-full p-5 bg-white shadow-lg rounded-lg border flex flex-col md:flex-row md:justify-center md:items-center gap-4'>
       <div className='w-full'>
         <div className='flex items-center justify-between mb-3'>
           <Label size={'md'}>Daily Tasks</Label>

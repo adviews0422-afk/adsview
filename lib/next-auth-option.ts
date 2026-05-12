@@ -41,7 +41,8 @@ export const nextauthOptions: NextAuthOptions = {
         const isValid = await bcrypt.compare(credentials.password, user.password || '')
 
         if (!isValid) return null
-
+        user.lastActiveAt = new Date()
+        await user.save()
         return {
           id: user._id.toString(),
           name: user.name,

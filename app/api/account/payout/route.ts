@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: 'No user found' }, { status: 404 })
   }
 
-  const unit = 5000
+  const unit = 100000
   const fullUnits = Math.floor(user.wallet.balance / unit)
 
   if (fullUnits <= 0) {
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   }
 
   const amount = fullUnits * unit
-  const totalToWithdraw = fullUnits * 20
+  const totalToWithdraw = fullUnits * 7
   try {
     const request = new paypal.payouts.PayoutsPostRequest()
 

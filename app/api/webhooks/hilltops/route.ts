@@ -51,6 +51,7 @@ export async function POST(req: Request) {
       userId: session.user.id,
       transactionId: transId,
       amount: 0,
+      status: 'credited',
       provider: 'hilltops',
     })
 

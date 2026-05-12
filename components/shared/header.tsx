@@ -24,13 +24,14 @@ import { Input } from '../ui/input'
 import { Separator } from '../ui/separator'
 import { DialogDescription } from '../ui/dialog'
 import { Label } from '../ui/label'
-import { ACCOUNT_MENU } from '@/utils/data'
+import { ACCOUNT_MENU, DASHBOARD_MENU } from '@/utils/data'
 import { FaSignOutAlt } from 'react-icons/fa'
 const Header = () => {
   const router = useRouter()
   const { data: session, status } = useSession()
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const currentMenu = session?.user.role === 'admin' ? DASHBOARD_MENU : ACCOUNT_MENU
   return (
     <div className='z-50  items-center sticky top-0 left-0 bg-white z-10 shadow-sm md:justify-none'>
       <div className='container flex flex-row w-full px-5 py-3 justify-between'>
@@ -46,16 +47,15 @@ const Header = () => {
           <DrawerContent className='h-screen top-0 left-0 mt-0 w-[300px] rounded-none'>
             <div className='flex flex-col p-4'>
               {session?.user &&
-                ACCOUNT_MENU.map((item, index) => {
+                currentMenu.map((item, index) => {
                   const Icon = item.icon
                   const isActive = pathname === item.path
-
                   return (
                     <Link
                       href={item.path}
                       key={index}
                       onClick={() => setOpen(false)}
-                      className={`p-4 gap-4 rounded flex ${isActive ? 'text-primary' : 'text-gray-400'}`}
+                      className={`p-4 rounded items-center flex ${isActive ? 'text-primary' : 'text-gray-400'}`}
                     >
                       <Icon
                         style={{ backgroundColor: item.color }}
@@ -68,7 +68,7 @@ const Header = () => {
               {session?.user ? (
                 <Label
                   size={'sm'}
-                  className='flex flex-row p-4 gap-4'
+                  className='flex flex-row p-4 items-center'
                   onClick={() => {
                     signOut()
                     setOpen(false)
@@ -122,7 +122,7 @@ const Header = () => {
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      {ACCOUNT_MENU.map((item, index) => (
+                      {currentMenu.map((item, index) => (
                         <DropdownMenuItem key={index}>
                           <Link className='text-decoration-none' href={item.path}>
                             <Label size={'md'} className='px-0'>

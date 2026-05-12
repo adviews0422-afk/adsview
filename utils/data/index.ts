@@ -40,6 +40,35 @@ export const ACCOUNT_MENU = [
   },
 ]
 
+export const DASHBOARD_MENU = [
+  {
+    title: 'Dashboard',
+    icon: LayoutDashboard,
+    path: '/dashboard',
+    color: '#4c64bb',
+  },
+
+  {
+    title: 'Transactions',
+    icon: TableProperties,
+    path: '/dashboard/transactions',
+    color: '#307557',
+  },
+
+  {
+    title: 'Withdrawals',
+    icon: Share,
+    path: '/dashboard/withdrawals',
+    color: '#712d74',
+  },
+  {
+    title: 'Profile Settings',
+    icon: User,
+    path: '/dashboard/profile',
+    color: '#817227',
+  },
+]
+
 export const HOW_IT_WORKS = [
   {
     icon: List,
@@ -59,25 +88,25 @@ export const HOW_IT_WORKS = [
 ]
 
 export const PROVIDERS = [
-  {
-    title: 'CPX Research',
-    description: 'cpx',
-    image: '/provider-icons/cpx.svg',
-    route: '/account/tasksList/cpx',
-  },
+  // {
+  //   title: 'CPX Research',
+  //   description: 'cpx',
+  //   image: '/provider-icons/cpx.svg',
+  //   route: '/account/tasksList/cpx',
+  // },
   {
     title: 'ADGem',
     description: 'adgem',
     image: '/provider-icons/adgem.png',
     route: '/account/tasksList/adgem',
   },
-  {
-    title: 'Hilltops',
-    description: 'Hilltop',
-    image: '/provider-icons/hilltops.jpg',
-    route:
-      'https://gullible-thanks.com/bO3.VQ0IPl3Gp/vUbmm/VQJAZvD_0l3tMSDZM/1WNqTeAexXLsTEcGwYM/zjUB1WMaDHUz',
-  },
+  // {
+  //   title: 'Hilltops',
+  //   description: 'Hilltop',
+  //   image: '/provider-icons/hilltops.jpg',
+  //   route:
+  //     'https://gullible-thanks.com/bO3.VQ0IPl3Gp/vUbmm/VQJAZvD_0l3tMSDZM/1WNqTeAexXLsTEcGwYM/zjUB1WMaDHUz',
+  // },
 
   // {
   //   title: 'AdscendMedia',
