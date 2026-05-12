@@ -5,10 +5,33 @@ import bcrypt from 'bcrypt'
 import Product from '@/lib/model/task.model'
 import Transaction from '@/lib/model/transaction.model'
 
+import { Redis } from '@upstash/redis'
+import { Ratelimit } from '@upstash/ratelimit'
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, '1 m'),
+})
+
 export async function POST(req: NextRequest) {
   try {
     await connectDB()
+
+    const ip = req.headers.get('x-forwarded-for') || 'unknown'
+
+    const { success } = await ratelimit.limit(ip)
+
+    if (!success) {
+      return NextResponse.json({ error: 'Too many requests. Please slow down.' }, { status: 429 })
+    }
+
     const { name, email, password, referral } = await req.json()
+
     const user = await User.findOne({ email })
 
     if (user) {
@@ -28,7 +51,10 @@ export async function POST(req: NextRequest) {
 
     await newUser.save()
 
-    const referredUser = await User.findOne({ referralCode: referral })
+    const referredUser = await User.findOne({
+      referralCode: referral,
+    })
+
     if (referredUser) {
       referredUser.wallet.balance += 50
       referredUser.wallet.totalEarned += 50
@@ -42,20 +68,6 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ message: 'Successfully registed!' }, { status: 200 })
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
-}
-export async function GET() {
-  try {
-    connectDB()
-    const product = await Product.find({})
-
-    if (!product) {
-      return NextResponse.json({ error: 'No product found!' }, { status: 200 })
-    }
-
-    return NextResponse.json({ product }, { status: 200 })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
