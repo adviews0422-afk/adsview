@@ -13,8 +13,7 @@ type StatsCardProps = {
 export default function StatsCard({ title, value, subtitle, icon, onPayout }: StatsCardProps) {
   return (
     <div className='w-full p-4 rounded-lg border flex items-center gap-3'>
-      {icon && <div className='p-2 rounded-md bg-slate-100'>{icon}</div>}
-
+      {icon && <div className='p-2 rounded-md'>{icon}</div>}
       <div className='flex flex-col'>
         <Label size='sm'>{title}</Label>
         <Label size='lg'>{value}</Label>

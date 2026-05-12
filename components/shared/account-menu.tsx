@@ -13,16 +13,15 @@ const AccountMenu = () => {
         const Icon = menu.icon
         return (
           <Link
-            className={`flex flex-row px-5 py-4 cursor-pointer hover:bg-slate-100 w-full items-center ${
+            className={`flex flex-row px-5 py-4 cursor-pointer hover:bg-slate-100 w-full items-center rounded-md ${
               pathname === menu.path ? 'bg-slate-100' : ''
             }`}
             key={index}
             href={menu.path}
           >
             <Icon
-              className={`min-h-6 min-w-6 mr-2  ${
-                pathname === menu.path ? 'text-primary' : 'text-gray-500'
-              }`}
+              style={{ backgroundColor: menu.color }}
+              className={`rounded-md h-8 w-8 mr-2 text-white p-2`}
             />
             <Label size={'md'}>{menu.title}</Label>
           </Link>
@@ -32,7 +31,10 @@ const AccountMenu = () => {
         className={`flex flex-row px-5 py-3 cursor-pointer hover:bg-slate-100 w-full items-center`}
         onClick={() => signOut()}
       >
-        <FaSignOutAlt className={`h-6 w-6 mr-2 text-gray-500`} />
+        <FaSignOutAlt
+          style={{ backgroundColor: '#b34141' }}
+          className={`rounded-md h-8 w-8 mr-2 text-white p-2`}
+        />
         <Label size={'md'}>Sign Out</Label>
       </Label>
     </div>

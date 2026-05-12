@@ -20,6 +20,7 @@ import {
 import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import toast from 'react-hot-toast'
+import Image from 'next/image'
 function Dashboard() {
   const { data } = useSession()
   const [value, toggle, setValue] = useToggle()
@@ -34,14 +35,23 @@ function Dashboard() {
         {profileData?.data && (
           <>
             <StatsCard
+              icon={<Image src={`/coin.png`} width={40} height={40} alt='' />}
               title={'Balance'}
               value={profileData?.data?.wallet?.balance}
               onPayout={() => {
                 toggle()
               }}
             />
-            <StatsCard title={'Total Earned'} value={profileData?.data?.wallet?.totalEarned} />
-            <StatsCard title={'Withdrawn'} value={profileData?.data?.wallet?.totalWithdrawn} />
+            <StatsCard
+              icon={<Image src={`/coin.png`} width={40} height={40} alt='' />}
+              title={'Total Earned'}
+              value={profileData?.data?.wallet?.totalEarned}
+            />
+            <StatsCard
+              icon={<Image src={`/coin.png`} width={40} height={40} alt='' />}
+              title={'Withdrawn'}
+              value={profileData?.data?.wallet?.totalWithdrawn}
+            />
           </>
         )}
       </div>

@@ -16,23 +16,27 @@ export const ACCOUNT_MENU = [
     title: 'Dashboard',
     icon: LayoutDashboard,
     path: '/account/dashboard',
+    color: '#4c64bb',
   },
 
   {
     title: 'Tasks',
     icon: TableProperties,
     path: '/account/tasks',
+    color: '#307557',
   },
 
   {
     title: 'Referral',
     icon: Share,
     path: '/account/referral',
+    color: '#712d74',
   },
   {
     title: 'Profile Settings',
     icon: User,
     path: '/account/profile',
+    color: '#817227',
   },
 ]
 

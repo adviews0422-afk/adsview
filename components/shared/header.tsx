@@ -25,6 +25,7 @@ import { Separator } from '../ui/separator'
 import { DialogDescription } from '../ui/dialog'
 import { Label } from '../ui/label'
 import { ACCOUNT_MENU } from '@/utils/data'
+import { FaSignOutAlt } from 'react-icons/fa'
 const Header = () => {
   const router = useRouter()
   const { data: session, status } = useSession()
@@ -56,7 +57,10 @@ const Header = () => {
                       onClick={() => setOpen(false)}
                       className={`p-4 gap-4 rounded flex ${isActive ? 'text-primary' : 'text-gray-400'}`}
                     >
-                      <Icon className={`h-6 w-6 transition-colors `} />
+                      <Icon
+                        style={{ backgroundColor: item.color }}
+                        className={`rounded-md h-8 w-8 mr-2 text-white p-2`}
+                      />
                       <Label size={'sm'}>{item?.title}</Label>
                     </Link>
                   )
@@ -70,7 +74,10 @@ const Header = () => {
                     setOpen(false)
                   }}
                 >
-                  <LogOutIcon className={`h-6 w-6 transition-colors `} />
+                  <FaSignOutAlt
+                    style={{ backgroundColor: '#b34141' }}
+                    className={`rounded-md h-8 w-8 mr-2 text-white p-2`}
+                  />
                   Sign Out
                 </Label>
               ) : (
