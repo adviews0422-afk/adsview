@@ -13,8 +13,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'AdsView | Earn Coins by Completing Simple Tasks',
-  description:
-    'CDiscover stores near you and enjoy hassle-free delivery to your doorstep. Shop locally and get your items delivered quickly and easily.',
+  description: 'Earn Coins by Completing Simple Tasks',
   icons: {
     icon: '/icon.png',
   },
