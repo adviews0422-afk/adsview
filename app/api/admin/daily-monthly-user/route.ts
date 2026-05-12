@@ -5,6 +5,7 @@ import Transaction from '@/lib/model/transaction.model'
 import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/lib/next-auth-option'
+import OfferTransaction from '@/lib/model/offerTransaction.model'
 
 export async function POST() {
   await connectDB()
@@ -34,11 +35,11 @@ export async function POST() {
       lastActiveAt: { $gte: last30Days },
     }),
 
-    Transaction.aggregate([
+    OfferTransaction.aggregate([
       {
         $group: {
           _id: null,
-          totalAmount: { $sum: '$amount' },
+          amount: { $sum: '$amount' },
         },
       },
     ]),
