@@ -101,7 +101,7 @@ export default function TransactionsPage() {
 
                   <TableCell>{t.type}</TableCell>
 
-                  <TableCell className='font-semibold'>₱{t.amount}</TableCell>
+                  <TableCell className='font-semibold'>+{t.amount} Coins</TableCell>
 
                   <TableCell>{t.description || '-'}</TableCell>
 
