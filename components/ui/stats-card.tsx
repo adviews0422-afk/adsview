@@ -19,7 +19,12 @@ export default function StatsCard({ title, value, subtitle, icon, onPayout }: St
         <Label size='lg'>{value}</Label>
         {subtitle && <Label size='xs'>{subtitle}</Label>}
         {onPayout && (
-          <Button variant={'default'} onClick={onPayout} className='mt-2' disabled={+value < 5000}>
+          <Button
+            variant={'default'}
+            onClick={onPayout}
+            className='mt-2'
+            disabled={+value < 100000}
+          >
             Payout
           </Button>
         )}

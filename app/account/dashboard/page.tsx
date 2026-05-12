@@ -124,7 +124,7 @@ function Dashboard() {
           <div className='mt-6 bg-gray-50 rounded-xl p-4 border'>
             <div className='flex justify-between text-sm'>
               <span className='text-gray-600'>
-                {Math.floor(profileData?.data?.wallet?.balance / 5000)} x 5000 Coins
+                {Math.floor(profileData?.data?.wallet?.balance / 100000)} x 100,000 Coins
               </span>
 
               <span className='font-semibold text-gray-800'>
