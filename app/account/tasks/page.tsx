@@ -7,13 +7,14 @@ import { useRouter } from 'next/navigation'
 import ProductCard from '@/components/ui/product-card'
 import TaskCard from '@/components/ui/task-card'
 
-import { PROVIDERS } from '@/utils/data'
+import { GAMES } from '@/utils/data'
 
 import {
+  useCreditTaskCountMutation,
   useGetCurrentTaskQuery,
-  useHilltopTaskMutation,
   useTaskCompletedMutation,
 } from '@/store/action/taskAction'
+import { Label } from '@/components/ui/label'
 
 function Profile() {
   const router = useRouter()
@@ -22,9 +23,7 @@ function Profile() {
 
   const { data: currentTask, isLoading: isGettingCurrentTask } = useGetCurrentTaskQuery({})
 
-  const [hilltopTask, { isLoading: isLoadingHilltopTask }] = useHilltopTaskMutation()
-
-  const loading = isGettingCurrentTask || isLoading || isLoadingHilltopTask
+  const loading = isGettingCurrentTask || isLoading
 
   if (loading) {
     return (
@@ -45,20 +44,15 @@ function Profile() {
         />
       )}
 
+      <Label size={'lg'}>Play a game for 15 minutes to earn credit for 1 completed task.</Label>
       <div className='grid grid-cols-12 gap-4'>
-        {PROVIDERS.map((items, index) => (
+        {GAMES.map((items, index) => (
           <div className='col-span-12 md:col-span-4' key={index}>
             <ProductCard
               productName={items.title}
               image={items.image}
               onClick={async () => {
-                if (items.title === 'Hilltops') {
-                  window.open(items.route)
-
-                  await hilltopTask({})
-                } else {
-                  router.push(items.route)
-                }
+                router.push(`/account/game/${items.id}`)
               }}
             />
           </div>

@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       transactionId: transId,
       amount: 0,
       status: 'credited',
-      provider: 'hilltops',
+      provider: 'gamemonetize',
     })
 
     return NextResponse.json({ success: true, status: 200 }, { status: 200 })

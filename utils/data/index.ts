@@ -87,30 +87,59 @@ export const HOW_IT_WORKS = [
   },
 ]
 
-export const PROVIDERS = [
-  // {
-  //   title: 'CPX Research',
-  //   description: 'cpx',
-  //   image: '/provider-icons/cpx.svg',
-  //   route: '/account/tasksList/cpx',
-  // },
+export const GAMES = [
   {
-    title: 'ADGem',
-    description: 'adgem',
-    image: '/provider-icons/adgem.png',
-    route: '/account/tasksList/adgem',
+    id: '1',
+    title: 'Baby Daycare Game',
+    image: '/games/Baby Daycare Game-512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/4v7y7okmokcjcr3xvu2tvg7mn6m714nk/',
   },
-  // {
-  //   title: 'Hilltops',
-  //   description: 'Hilltop',
-  //   image: '/provider-icons/hilltops.jpg',
-  //   route:
-  //     'https://gullible-thanks.com/bO3.VQ0IPl3Gp/vUbmm/VQJAZvD_0l3tMSDZM/1WNqTeAexXLsTEcGwYM/zjUB1WMaDHUz',
-  // },
-
-  // {
-  //   title: 'AdscendMedia',
-  //   description: 'cpx',
-  //   image: '/provider-icons/adscendMedia.svg',
-  // },
+  {
+    id: '2',
+    title: 'Spider Escape Link',
+    image: '/games/Spider Escape Link-512x512 (1).jpg',
+    iframe: 'https://html5.gamemonetize.co/nqnluzp0t0plultzp9kz7r3r5p3udfmr/',
+  },
+  {
+    id: '3',
+    title: 'Merge Rainbow Fighting',
+    image: '/games/Merge Rainbow Fighting -512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/u65xrx2dtfsyfm4h7fozwp1f9eqiq0wk/',
+  },
+  {
+    id: '4',
+    title: 'Cake Protector',
+    image: '/games/Cake Protector-512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/8zigldmipiggmre844ek07d6gvqm6eia/',
+  },
+  {
+    id: '5',
+    title: 'Word Ladder',
+    image: '/games/Word Ladder-512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/1n7aeyhbtz2ygqvh8lkh2mu9ovbxb13a/',
+  },
+  {
+    id: '6',
+    title: 'Stickman Sniper',
+    image: '/games/Stickman Sniper Shoot-512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/bymes51dz58zqon1ooz7db2ubsxyrz7g/',
+  },
+  {
+    id: '7',
+    title: 'Cut My Candy',
+    image: '/games/Cut My Candy-512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/d2ajkz9qsul5ai8ly663jzm9n3a9k1jw/',
+  },
+  {
+    id: '8',
+    title: 'Ocean Blast',
+    image: '/games/Ocean Blast  Block Puzzle-512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/0km1ipa9tv0ihpdjs6c9gokwzlwxl7s2/',
+  },
+  {
+    id: '9',
+    title: 'Gun Man',
+    image: '/games/Gunman-512x512.jpg',
+    iframe: 'https://html5.gamemonetize.co/fk7e6zny5stirjlyeq27r7xpi50i79yo/',
+  },
 ]
