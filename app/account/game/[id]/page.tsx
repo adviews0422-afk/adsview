@@ -8,13 +8,13 @@ import { useCreditTaskCountMutation } from '@/store/action/taskAction'
 export default function GamePage() {
   const params = useParams()
   const id = params.id as string
-  const [hilltopTask, { isLoading: isLoadingHilltopTask }] = useCreditTaskCountMutation()
+  const [creditTask, { isLoading: isLoadingHilltopTask }] = useCreditTaskCountMutation()
   const game = GAMES?.find((items) => items?.id === id)
 
   const [timeLeft, setTimeLeft] = useState(15 * 60) // 15 minutes
 
   const onTimerFinish = async () => {
-    await hilltopTask({})
+    await creditTask({})
   }
 
   useEffect(() => {

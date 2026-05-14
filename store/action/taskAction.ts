@@ -22,7 +22,7 @@ export const taskApi = apiSlice.injectEndpoints({
     }),
     creditTaskCount: builder.mutation({
       query: () => ({
-        url: `/api/webhooks/creaditTaskCount`,
+        url: `/api/webhooks/creditTaskCount`,
         method: 'POST',
       }),
     }),

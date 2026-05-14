@@ -14,7 +14,7 @@ const offerTransactionSchema = new mongoose.Schema<IOfferTransaction>(
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     provider: {
       type: String,
-      enum: ['cpx', 'adgate', 'hilltops'],
+      enum: ['gamemonetize', 'adgate', 'hilltops'],
       required: true,
     },
     transactionId: { type: String, unique: true },
