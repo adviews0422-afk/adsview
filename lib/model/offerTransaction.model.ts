@@ -2,7 +2,7 @@ import mongoose, { Document, Model } from 'mongoose'
 
 export interface IOfferTransaction extends Document {
   userId: mongoose.Types.ObjectId
-  provider: 'cpx' | 'adgate' | 'hilltops'
+  provider: 'gamemonetize' | 'adgate' | 'hilltops'
   transactionId: string
   amount: number
   status: 'pending' | 'credited' | 'rejected'
