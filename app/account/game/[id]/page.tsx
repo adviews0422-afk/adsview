@@ -41,14 +41,15 @@ export default function GamePage() {
   const seconds = timeLeft % 60
 
   return (
-    <div className='relative w-full h-[90vh]'>
+    <div className='relative w-full h-[89vh]'>
       <div
         style={{
           position: 'absolute',
-          bottom: 10,
+          top: 10,
           left: 10,
           zIndex: 10,
-          background: '#00000060',
+          fontSize: '24px',
+          background: '#000000',
           color: '#fff',
           padding: '8px 12px',
           borderRadius: 8,
