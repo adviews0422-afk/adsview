@@ -26,14 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <meta name='google-adsense-account' content='ca-pub-7785908484017299' />
+      </head>
       <body className={inter.className}>
-        <Script
-          async
-          strategy='afterInteractive'
-          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7785908484017299'
-          crossOrigin='anonymous'
-        />
-
         <StoreProvider>
           <AuthProvider>
             <Header />
