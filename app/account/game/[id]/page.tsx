@@ -11,7 +11,7 @@ export default function GamePage() {
   const [creditTask, { isLoading: isLoadingHilltopTask }] = useCreditTaskCountMutation()
   const game = GAMES?.find((items) => items?.id === id)
 
-  const [timeLeft, setTimeLeft] = useState(15 * 60) // 15 minutes
+  const [timeLeft, setTimeLeft] = useState(1 * 60) // 15 minutes
 
   const onTimerFinish = async () => {
     await creditTask({})
