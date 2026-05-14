@@ -41,14 +41,14 @@ export default function GamePage() {
   const seconds = timeLeft % 60
 
   return (
-    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+    <div style={{ width: '100vw', height: '80vh', position: 'relative' }}>
       <div
         style={{
           position: 'absolute',
-          top: 10,
+          bottom: 10,
           left: 10,
           zIndex: 10,
-          background: '#000',
+          background: '#00000060',
           color: '#fff',
           padding: '8px 12px',
           borderRadius: 8,
