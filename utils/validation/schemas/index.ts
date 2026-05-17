@@ -7,6 +7,11 @@ export const LoginSchema = z.object({
   }),
 })
 
+export const ConversionSchema = z.object({
+  coins: z.coerce.number().min(1, { message: 'Coins is required' }),
+  convertion: z.coerce.number().min(1, { message: 'Conversion is required' }),
+})
+
 export const RegisterSchema = z.object({
   name: z.string().min(1, { message: 'Full Name is required' }),
   email: z.string().email({ message: 'Email is required' }),

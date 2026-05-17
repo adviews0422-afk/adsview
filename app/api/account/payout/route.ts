@@ -6,6 +6,7 @@ import { nextauthOptions } from '@/lib/next-auth-option'
 import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 import Transaction from '@/lib/model/transaction.model'
+import WithdrawalSettings from '@/lib/model/withdrawalsettings.model'
 export async function POST(req: Request) {
   const session = await getServerSession(nextauthOptions)
 
@@ -18,18 +19,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: 'No user found' }, { status: 404 })
   }
 
-  const unit = 100000
-  const fullUnits = Math.floor(user.wallet.balance / unit)
+  let convertionRate = await WithdrawalSettings.findOne({})
+
+  if (!convertionRate) {
+    convertionRate = await WithdrawalSettings.create({
+      coins: 100000,
+      convertion: 7,
+    })
+  }
+
+  const fullUnits = Math.floor(user.wallet.balance / convertionRate.coins)
 
   if (fullUnits <= 0) {
     return NextResponse.json({ message: 'Insufficient balance' }, { status: 400 })
   }
 
-  const amount = fullUnits * unit
-  const totalToWithdraw = fullUnits * 7
+  const amount = fullUnits * convertionRate.coins
+  const totalToWithdraw = fullUnits * convertionRate.convertion
   try {
     const request = new paypal.payouts.PayoutsPostRequest()
-
     request.requestBody({
       sender_batch_header: {
         sender_batch_id: `batch_${Date.now()}`,

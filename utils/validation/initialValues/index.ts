@@ -5,6 +5,10 @@ export const LoginInitialValues = {
   password: '',
 }
 
+export const ConversionInitialValues = {
+  coins: 0,
+  convertion: 0,
+}
 export const RegisterInitialValues = {
   name: '',
   email: '',

@@ -54,6 +54,7 @@ function Dashboard() {
           icon={<Image src='/coin.png' width={40} height={40} alt='' />}
           title='Balance'
           value={profileData?.data?.wallet?.balance}
+          valueToPayout={profileData?.conversionRate?.coins}
           onPayout={() => {
             toggle()
           }}
@@ -128,15 +129,23 @@ function Dashboard() {
           <div className='mt-6 bg-gray-50 rounded-xl p-4 border'>
             <div className='flex justify-between text-sm'>
               <span className='text-gray-600'>
-                {Math.floor(profileData?.data?.wallet?.balance / 100000)} x 100,000 Coins
+                {Math.floor(
+                  profileData?.data?.wallet?.balance / profileData?.conversionRate?.coins,
+                )}{' '}
+                x {profileData?.conversionRate?.coins} Coins
               </span>
 
               <span className='font-semibold text-gray-800'>
-                ₱{Math.floor(profileData?.data?.wallet?.balance / 100000) * 7}
+                ₱
+                {Math.floor(
+                  profileData?.data?.wallet?.balance / profileData?.conversionRate?.coins,
+                ) * profileData?.conversionRate?.convertion}
               </span>
             </div>
 
-            <div className='mt-2 text-xs text-gray-500'>Exchange rate: 100,000 coins = ₱7 PHP</div>
+            <div className='mt-2 text-xs text-gray-500'>
+              Exchange rate: 100,000 coins = ₱{profileData?.conversionRate?.convertion} PHP
+            </div>
           </div>
 
           <div className='mt-5'>

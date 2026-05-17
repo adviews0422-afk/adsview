@@ -11,6 +11,7 @@ import {
   TableHead,
   TableCell,
 } from '@/components/ui/table'
+import WithdrawalSettingsForm from '@/components/forms/withdrawal-settings-form'
 
 export default function WithdrawalsPage() {
   const [data, setData] = useState<any[]>([])
@@ -67,6 +68,10 @@ export default function WithdrawalsPage() {
 
   return (
     <div className='p-6 space-y-6 w-full'>
+      <div className='bg-slate-100 p-4 rounded-md shadow-lg'>
+        <h1 className='text-2xl font-bold mb-3'>Conversion</h1>
+        <WithdrawalSettingsForm />
+      </div>
       <h1 className='text-2xl font-bold'>Withdrawals</h1>
 
       <input

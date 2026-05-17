@@ -1,24 +1,42 @@
 import connectDB from '@/lib/db'
 import User from '@/lib/model/user.model'
+import WithdrawalSettings from '@/lib/model/withdrawalsettings.model'
 import { NextRequest, NextResponse } from 'next/server'
-import bcrypt from 'bcrypt'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/lib/next-auth-option'
 
 export async function POST(req: NextRequest) {
   try {
     await connectDB()
-    const session = await getServerSession(nextauthOptions)
-    const user = await User.findById(session?.user?.id)
-      .select('-password')
-      .select('-role')
-      .select('-provider')
 
-    if (!session && !user) {
-      return NextResponse.json({ error: 'UnAuthorized!' }, { status: 400 })
+    const session = await getServerSession(nextauthOptions)
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'UnAuthorized!' }, { status: 401 })
     }
 
-    return NextResponse.json({ data: user }, { status: 200 })
+    const user = await User.findById(session.user.id).select('-password -role -provider')
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+
+    let conversionRate = await WithdrawalSettings.findOne({})
+
+    if (!conversionRate) {
+      conversionRate = await WithdrawalSettings.create({
+        coins: 100000,
+        convertion: 7,
+      })
+    }
+
+    return NextResponse.json(
+      {
+        data: user,
+        conversionRate,
+      },
+      { status: 200 },
+    )
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
