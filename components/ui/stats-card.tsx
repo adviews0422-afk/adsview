@@ -16,7 +16,7 @@ export default function StatsCard({
   value,
   subtitle,
   icon,
-  valueToPayout,
+  valueToPayout = 0,
   onPayout,
 }: StatsCardProps) {
   return (
@@ -31,7 +31,7 @@ export default function StatsCard({
             variant={'default'}
             onClick={onPayout}
             className='mt-2'
-            disabled={+value < valueToPayout}
+            disabled={+value < +valueToPayout}
           >
             Payout
           </Button>
