@@ -142,61 +142,60 @@ export const GAMES = [
     image: '/games/Gunman-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/fk7e6zny5stirjlyeq27r7xpi50i79yo/',
   },
-]
-
-export const GAMES2 = [
   {
-    id: '1',
+    id: '11',
     title: 'Shape Factory Fun',
     image: '/games/Shape Factory Fun-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/i0kawydxvdzne07yim4n3p6u3f0avvtk/',
   },
   {
-    id: '2',
+    id: '12',
     title: 'Max Speed',
     image: '/games/Max Speed-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/ai9lo8rruqqnfxpsvk6fveoe6yzs9bfo/',
   },
   {
-    id: '3',
+    id: '13',
     title: 'Animal Merge: Zoo Drop',
     image: '/games/Animal Merge  Zoo Drop-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/hzebhrq29qw91ykrvbm8h7uabjr8tymt/',
   },
   {
-    id: '4',
+    id: '14',
     title: 'Special Alien',
     image: '/games/Special Alien-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/twb1vrkxonso8gpopf0xukhr62e59u44/',
   },
   {
-    id: '5',
+    id: '15',
     title: 'Fruit Match Juicy Puzzle 2',
     image: '/games/Fruit Match Juicy Puzzle 2-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/uhjyugbb8chm5ww684k9suitae41c1t1/',
   },
   {
-    id: '6',
+    id: '16',
     title: 'Big Farming Fun',
     image: '/games/Big Farming Fun-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/kzqgu32z24g4kzk3do6gkdpdh8uuu7sf/',
   },
   {
-    id: '7',
+    id: '17',
     title: 'Sprunki Mustard All Phases',
     image: '/games/Sprunki Mustard All Phases-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/i5cyte2r6wb95scrgyy35z4v2wumjfzh/',
   },
   {
-    id: '8',
+    id: '18',
     title: 'Tank Master',
     image: '/games/Tank Master-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/r50sosv94qp15bkjhze2givwy8z5bsuu/',
   },
   {
-    id: '9',
+    id: '19',
     title: 'Sonic Rush Toilet',
     image: '/games/Sonic Rush Toilet-512x512.jpg',
     iframe: 'https://html5.gamemonetize.co/4y5y37awmc6l31z6pstxm87rgqqkwpwp/',
   },
 ]
+
+export const GAMES2 = []
