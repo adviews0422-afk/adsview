@@ -31,9 +31,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Task not yet completed', status: 400 }, { status: 400 })
     }
 
-    user.wallet.balance += 500
-    user.wallet.totalEarned += 500
-    userTaskLog.isClaimed = true
+    user.wallet.balance += 50
+    user.wallet.totalEarned += 50
+    //userTaskLog.isClaimed = true
+
+    userTaskLog.count = 0
     await userTaskLog?.save()
     await user.save()
 
