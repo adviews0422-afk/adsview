@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, use } from 'react'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { SyncLoader } from 'react-spinners'
@@ -32,6 +32,10 @@ function Dashboard() {
   const [requestWithdrawal, { isLoading: isRequestingWithdrawal }] = useRequestWithdrawalMutation(
     {},
   )
+
+  useEffect(() => {
+    refetch()
+  }, [])
 
   const isLoading = isProfileLoading || isTransactionLoading
 

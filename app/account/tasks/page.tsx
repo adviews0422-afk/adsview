@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import ProductCard from '@/components/ui/product-card'
 import TaskCard from '@/components/ui/task-card'
 
-import { GAMES } from '@/utils/data'
+import { GAMES, GAMES2 } from '@/utils/data'
 
 import {
   useCreditTaskCountMutation,
@@ -21,7 +21,7 @@ function Profile() {
 
   const [taskCompleted, { isLoading }] = useTaskCompletedMutation({})
 
-  const { data: currentTask, isLoading: isGettingCurrentTask } = useGetCurrentTaskQuery({})
+  const { data: currentTask, isLoading: isGettingCurrentTask, refetch } = useGetCurrentTaskQuery({})
 
   const loading = isGettingCurrentTask || isLoading
 
@@ -40,13 +40,29 @@ function Profile() {
           isClaimed={currentTask?.data?.isClaimed}
           completed={currentTask?.data?.count}
           isLoading={isLoading}
-          onClaim={async () => await taskCompleted({})}
+          onClaim={async () => {
+            await taskCompleted({})
+            await refetch()
+          }}
         />
       )}
 
       <Label size={'lg'}>Play a game for 15 minutes to earn credit for 1 completed task.</Label>
       <div className='grid grid-cols-12 gap-4'>
-        {GAMES.map((items, index) => (
+        {GAMES.map((items: any, index: number) => (
+          <div className='col-span-12 md:col-span-4' key={index}>
+            <ProductCard
+              productName={items.title}
+              image={items.image}
+              onClick={async () => {
+                router.push(`/account/game/${items.id}`)
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      <div className='grid grid-cols-12 gap-4'>
+        {GAMES2.map((items: any, index: number) => (
           <div className='col-span-12 md:col-span-4' key={index}>
             <ProductCard
               productName={items.title}

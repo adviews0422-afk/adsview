@@ -23,7 +23,7 @@ const TaskCard = ({
     <div className='w-full p-5 bg-white shadow-lg rounded-lg border flex flex-col md:flex-row md:justify-center md:items-center gap-4'>
       <div className='w-full'>
         <div className='flex items-center justify-between mb-3'>
-          <Label size={'md'}>Daily Tasks</Label>
+          <Label size={'md'}>Task</Label>
           <Label size={'sm'}>
             {completed}/{total}
           </Label>
@@ -37,7 +37,7 @@ const TaskCard = ({
         <Label size={'sm'}>
           {isComplete
             ? !isClaimed
-              ? 'All tasks completed! You can now claim your reward 🎉'
+              ? 'Completed 15 task! You can now claim your reward 🎉'
               : 'Claimed'
             : `Complete ${total - completed} more task(s) to claim`}
         </Label>
