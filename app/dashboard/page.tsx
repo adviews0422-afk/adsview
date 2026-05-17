@@ -45,16 +45,6 @@ function Dashboard() {
             <p className='text-xs text-gray-500'>from last month</p>
           </div>
         </div>
-
-        <div className='flex items-center gap-4 rounded border bg-white p-5 shadow-lg'>
-          <FaMoneyBill size={50} className='bg-slate-100 p-3 text-primary' />
-
-          <div>
-            <p className='text-sm text-gray-600'>Total Revenue</p>
-            <p className='text-3xl text-gray-700 my-2'>₱{data?.totalTransactionAmount}</p>
-            <p className='text-xs text-gray-500'>Overall revenue</p>
-          </div>
-        </div>
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
