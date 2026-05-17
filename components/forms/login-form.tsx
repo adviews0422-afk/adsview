@@ -81,7 +81,6 @@ export default function LoginForm({ callbackUrl }: LoginFormProps) {
           {status === 'loading' ? 'Loading...' : 'Login'}
         </Button>
         <div className='flex w-100 align-center flex-col justify-center'>
-          <Social callbackUrl={callbackUrl} />
           <Link className='text-sm p-3' href={'/auth/register'}>
             Dont have an account?
           </Link>

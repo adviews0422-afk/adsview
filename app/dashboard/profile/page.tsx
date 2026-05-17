@@ -9,17 +9,12 @@ import Image from 'next/image'
 import { Label } from '@/components/ui/label'
 import { useSession } from 'next-auth/react'
 function Profile() {
+  const { data } = useSession()
   return (
     <div className='flex items-center w-full h-100 p-0 flex-col'>
-      <div className='w-full flex flex-col justify-center items-center '>
-        <div className='mt-10 z-10'>
-          <Image
-            src={``}
-            className='border-2 bg-slate-100 rounded-full md:h-[120px] md:w-[120px] h-[90px] w-[90px] object-cover shadow-lg'
-            width={120}
-            height={120}
-            alt=''
-          />
+      <div className='w-full flex flex-col justify-center items-center'>
+        <div className='mt-8 bg-slate-100 rounded h-[100px] w-[100px] flex justify-center items-center rounded-full m-0 text-primary'>
+          <Label size={'xl'}>{data?.user.name.slice(0, 1)}</Label>
         </div>
       </div>
       <div className='flex flex-col px-5 w-full md:w-[500px]'>
