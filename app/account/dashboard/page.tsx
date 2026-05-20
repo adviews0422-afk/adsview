@@ -256,8 +256,8 @@ function Dashboard() {
           </div>
 
           <div className='mt-3 bg-yellow-50 border border-yellow-200 text-yellow-700 text-xs p-3 rounded-lg'>
-            ⚠️ Important: Your PayPal email must match your AdsView account email for successful
-            payout verification.
+            ⚠️ Important: Your PayPal email must be registered and active on PayPal to receive
+            payouts successfully.
           </div>
 
           <Button
