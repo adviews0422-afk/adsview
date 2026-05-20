@@ -4,7 +4,7 @@ export interface IWithdrawal extends Document {
   userId: mongoose.Types.ObjectId
 
   amount: number
-
+  coins: number
   method: 'paypal'
 
   payoutBatchId: string
@@ -17,11 +17,9 @@ export interface IWithdrawal extends Document {
 const withdrawalSchema = new mongoose.Schema<IWithdrawal>(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-
     amount: { type: Number, required: true },
-
     method: { type: String, default: 'paypal' },
-
+    coins: { type: Number, required: true },
     paypalEmail: { type: String, required: true },
     payoutBatchId: { type: String, required: true },
     status: {

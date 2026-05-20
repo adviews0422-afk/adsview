@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
       const user = await User.findById(withdrawal.userId)
       if (user) {
-        user.wallet.balance += withdrawal.amount
+        user.wallet.balance += withdrawal.coins
         await user.save()
       }
     }

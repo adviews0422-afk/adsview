@@ -76,6 +76,7 @@ export async function POST(req: NextRequest) {
       amount: totalToWithdraw,
       method: 'paypal',
       paypalEmail: email,
+      coins: amount,
       status: 'pending',
       payoutBatchId: payoutId,
     })
