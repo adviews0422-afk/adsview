@@ -4,16 +4,18 @@ import Withdrawal from '@/lib/model/withdrawal.model'
 import { client } from '@/lib/paypal'
 import { nextauthOptions } from '@/lib/next-auth-option'
 import { getServerSession } from 'next-auth'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import Transaction from '@/lib/model/transaction.model'
 import WithdrawalSettings from '@/lib/model/withdrawalsettings.model'
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const { email } = await req.json()
   const session = await getServerSession(nextauthOptions)
-
   if (!session?.user?.id) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
   }
-
+  if (!email) {
+    return NextResponse.json({ message: 'Invalid params!' }, { status: 404 })
+  }
   const user = await User.findById(session.user.id)
   if (!user) {
     return NextResponse.json({ message: 'No user found' }, { status: 404 })
@@ -46,7 +48,7 @@ export async function POST(req: Request) {
       items: [
         {
           recipient_type: 'EMAIL',
-          receiver: user.email,
+          receiver: email,
           amount: {
             value: totalToWithdraw.toFixed(2),
             currency: 'PHP',
@@ -71,9 +73,9 @@ export async function POST(req: Request) {
 
     const withdrawal = await Withdrawal.create({
       userId: user._id,
-      amount,
+      amount: totalToWithdraw,
       method: 'paypal',
-      paypalEmail: user.email,
+      paypalEmail: email,
       status: 'pending',
       payoutBatchId: payoutId,
     })

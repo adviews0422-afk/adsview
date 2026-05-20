@@ -34,9 +34,10 @@ export const accountApi = apiSlice.injectEndpoints({
       providesTags: [{ type: 'Account', id: 'INFO' }],
     }),
     requestWithdrawal: builder.mutation({
-      query: () => ({
+      query: ({ email }: { email: string }) => ({
         url: '/api/account/payout',
         method: 'POST',
+        body: { email: email },
       }),
     }),
   }),

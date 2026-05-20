@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useEffect, use } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { SyncLoader } from 'react-spinners'
 import { useSession } from 'next-auth/react'
 
 import { useGetUserProfileQuery, useRequestWithdrawalMutation } from '@/store/action/accountAction'
+
 import { useGetTransactionQuery } from '@/store/action/transactionAction'
 
 import { TransactionProps } from '@/types/type'
@@ -19,15 +20,25 @@ import { useToggle } from '@/hooks/useToggle'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 
 import StatsCard from '@/components/ui/stats-card'
+import { useGetWithdrawalsQuery } from '@/store/action/withdrawal'
 
 function Dashboard() {
   const { data } = useSession()
 
   const [value, toggle, setValue] = useToggle()
 
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
+
   const { data: profileData, refetch, isLoading: isProfileLoading } = useGetUserProfileQuery({})
 
   const { data: transactionData, isLoading: isTransactionLoading } = useGetTransactionQuery({})
+
+  const {
+    data: withdrawalData,
+    isLoading: isWithdrawalLoading,
+    refetch: refetchWithdrawals,
+  } = useGetWithdrawalsQuery({})
 
   const [requestWithdrawal, { isLoading: isRequestingWithdrawal }] = useRequestWithdrawalMutation(
     {},
@@ -35,9 +46,30 @@ function Dashboard() {
 
   useEffect(() => {
     refetch()
+    refetchWithdrawals()
   }, [])
 
-  const isLoading = isProfileLoading || isTransactionLoading
+  useEffect(() => {
+    if (data?.user?.email) {
+      setEmail(data.user.email)
+    }
+  }, [data])
+
+  const validateEmail = (value: string) => {
+    if (!value.trim()) {
+      return 'PayPal email is required'
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!emailRegex.test(value)) {
+      return 'Please enter a valid email'
+    }
+
+    return ''
+  }
+
+  const isLoading = isProfileLoading || isTransactionLoading || isWithdrawalLoading
 
   if (isLoading) {
     return (
@@ -48,7 +80,7 @@ function Dashboard() {
   }
 
   return (
-    <div className='flex w-full h-full p-4 flex-col gap-4'>
+    <div className='flex w-full h-full p-4 flex-col gap-6'>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full'>
         <StatsCard
           icon={<Image src='/coin.png' width={40} height={40} alt='' />}
@@ -72,54 +104,106 @@ function Dashboard() {
           value={profileData?.data?.wallet?.totalWithdrawn}
         />
       </div>
+      <div className='flex flex-col gap-4 w-full w-100 md:flex-row'>
+        <div className='flex flex-col gap-3 w-full'>
+          <Label size='lg'>Withdrawals</Label>
 
-      <Label size='lg'>Recent Transaction</Label>
+          {withdrawalData?.data?.length === 0 ? (
+            <div className='border rounded-md p-6 bg-white text-center text-gray-500'>
+              No withdrawals found
+            </div>
+          ) : (
+            withdrawalData?.data?.map((item: any, index: number) => (
+              <div
+                key={index}
+                className='flex items-center justify-between p-4 rounded-md w-full border bg-white hover:bg-gray-50 transition-colors'
+              >
+                <div className='flex flex-col gap-1'>
+                  <Label size='sm'>{item.paypalEmail}</Label>
 
-      <div className='flex flex-col gap-3'>
-        {transactionData?.data?.length === 0 ? (
-          <div className='border rounded-md p-6 bg-white text-center text-gray-500'>
-            No transactions found
-          </div>
-        ) : (
-          transactionData?.data?.map((items: TransactionProps, index: number) => (
-            <div
-              className='flex items-center justify-between p-4 rounded-md w-full border bg-white hover:bg-gray-50 transition-colors'
-              key={index}
-            >
-              <div className='flex flex-col gap-2'>
-                <Label size='sm'>{items.userId.name}</Label>
+                  <Label size='xs'>Batch ID: {item.payoutBatchId}</Label>
 
-                <Label size='xs'>{items.userId.email}</Label>
-
-                <span
-                  className={`text-xs rounded-full font-medium
-                  ${
-                    items.type === 'referral'
-                      ? 'text-purple-700'
-                      : items.type === 'task'
+                  <span
+                    className={`text-xs rounded-full font-medium
+                    ${
+                      item.status === 'paid'
                         ? 'text-green-700'
-                        : items.type === 'offer'
-                          ? 'text-blue-700'
-                          : 'text-red-700'
-                  }`}
-                >
-                  {items.type}
-                </span>
-              </div>
-
-              <div>
-                <div className='text-right'>
-                  <Label size='sm'>+{items.amount}</Label>
-                  <Label size='sm'> coins</Label>
+                        : item.status === 'pending'
+                          ? 'text-yellow-700'
+                          : item.status === 'approved'
+                            ? 'text-blue-700'
+                            : 'text-red-700'
+                    }`}
+                  >
+                    {item.status}
+                  </span>
                 </div>
 
-                <Label size='xs'>{new Date(items.createdAt).toLocaleString()}</Label>
+                <div className='text-right flex flex-col'>
+                  <div>
+                    <Label size='sm'>₱ {item.amount}</Label>
+                  </div>
+
+                  <Label size='xs'>{new Date(item.createdAt).toLocaleString()}</Label>
+                </div>
               </div>
+            ))
+          )}
+        </div>
+        {/* Transactions */}
+        <div className='flex flex-col gap-3 w-full'>
+          <Label size='lg'>Recent Transactions</Label>
+
+          {transactionData?.data?.length === 0 ? (
+            <div className='border rounded-md p-6 bg-white text-center text-gray-500'>
+              No transactions found
             </div>
-          ))
-        )}
+          ) : (
+            transactionData?.data?.map((items: TransactionProps, index: number) => (
+              <div
+                className='flex items-center justify-between p-4 rounded-md w-full border bg-white hover:bg-gray-50 transition-colors'
+                key={index}
+              >
+                <div className='flex flex-col gap-2'>
+                  <Label size='sm'>{items.userId.name}</Label>
+
+                  <Label size='xs'>{items.userId.email}</Label>
+
+                  <span
+                    className={`text-xs rounded-full font-medium
+                      ${
+                        items.type === 'referral'
+                          ? 'text-purple-700'
+                          : items.type === 'task'
+                            ? 'text-green-700'
+                            : items.type === 'offer'
+                              ? 'text-blue-700'
+                              : 'text-red-700'
+                      }`}
+                  >
+                    {items.type}
+                  </span>
+                </div>
+
+                <div>
+                  <div className='text-right'>
+                    <Label size='sm'>
+                      {items.type === 'withdrawal' ? '-' : '+'}
+                      {items.amount}
+                    </Label>
+
+                    <Label size='sm'> coins</Label>
+                  </div>
+
+                  <Label size='xs'>{new Date(items.createdAt).toLocaleString()}</Label>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </div>
 
+      {/* Withdrawal Dialog */}
       <Dialog open={value} onOpenChange={setValue}>
         <DialogContent className='w-md max-h-[90vh] overflow-y-auto'>
           <h2 className='text-xl font-bold text-gray-800'>Coin Conversion</h2>
@@ -144,7 +228,8 @@ function Dashboard() {
             </div>
 
             <div className='mt-2 text-xs text-gray-500'>
-              Exchange rate: 100,000 coins = ₱{profileData?.conversionRate?.convertion} PHP
+              Exchange rate: {profileData?.conversionRate?.coins} coins = ₱
+              {profileData?.conversionRate?.convertion} PHP
             </div>
           </div>
 
@@ -153,11 +238,21 @@ function Dashboard() {
 
             <input
               type='email'
-              disabled
-              value={data?.user.email}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+
+                if (emailError) {
+                  setEmailError('')
+                }
+              }}
               placeholder='you@example.com'
-              className='mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+              className={`mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 ${
+                emailError ? 'border-red-500 focus:ring-red-500' : 'focus:ring-blue-500'
+              }`}
             />
+
+            {emailError && <p className='text-red-500 text-xs mt-1'>{emailError}</p>}
           </div>
 
           <div className='mt-3 bg-yellow-50 border border-yellow-200 text-yellow-700 text-xs p-3 rounded-lg'>
@@ -168,12 +263,29 @@ function Dashboard() {
           <Button
             disabled={isRequestingWithdrawal}
             onClick={async () => {
-              const response = await requestWithdrawal({}).unwrap()
+              const validationError = validateEmail(email)
 
-              if (response?.status === 200) {
-                toggle()
-                await refetch()
-                toast.success('Successfully transferred!')
+              if (validationError) {
+                setEmailError(validationError)
+                return
+              }
+
+              try {
+                const response = await requestWithdrawal({
+                  email,
+                }).unwrap()
+
+                if (response?.status === 200) {
+                  toggle()
+
+                  await refetch()
+                  await refetchWithdrawals()
+
+                  toast.success('Successfully transferred!')
+                }
+              } catch (error) {
+                console.log(error)
+                toast.error('Failed to process withdrawal')
               }
             }}
           >
