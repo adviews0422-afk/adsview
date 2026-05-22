@@ -69,7 +69,6 @@ export async function POST(req: NextRequest) {
     }
 
     user.wallet.balance -= amount
-    user.wallet.totalEarned += amount
     user.wallet.totalWithdrawn += amount
     await user.save()
 
