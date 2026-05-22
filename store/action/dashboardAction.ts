@@ -4,6 +4,7 @@ import { ProductFormProps } from '@/types/type'
 interface WithdrawalSettingsProps {
   coins: number
   convertion: number
+  manual: boolean
 }
 export const dashboardApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -14,12 +15,13 @@ export const dashboardApi = apiSlice.injectEndpoints({
       }),
     }),
     updateWithdrawalSettings: builder.mutation({
-      query: ({ coins, convertion }: WithdrawalSettingsProps) => ({
+      query: ({ coins, convertion, manual }: WithdrawalSettingsProps) => ({
         url: '/api/admin/withdrawal-settings/update',
         method: 'POST',
         body: {
           coins,
           convertion,
+          manual,
         },
       }),
     }),

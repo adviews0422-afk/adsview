@@ -17,12 +17,14 @@ import {
 import { ConversionSchema } from '@/utils/validation/schemas'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
 import { ConversionInitialValues } from '@/utils/validation/initialValues'
 
 import {
   useGetConvertionQuery,
   useUpdateWithdrawalSettingsMutation,
 } from '@/store/action/dashboardAction'
+
 import toast from 'react-hot-toast'
 
 export default function WithdrawalSettingsForm() {
@@ -48,6 +50,7 @@ export default function WithdrawalSettingsForm() {
       form.reset({
         coins: convertionData.data.coins,
         convertion: convertionData.data.convertion,
+        manual: convertionData.data.manual ?? false,
       })
     }
   }, [convertionData, form])
@@ -56,7 +59,9 @@ export default function WithdrawalSettingsForm() {
     const reponse = await updateWithdrawalSettings({
       coins: Number(values.coins),
       convertion: Number(values.convertion),
+      manual: values.manual,
     }).unwrap()
+
     if (reponse.status === 200) {
       toast.success('Successfully updated!')
     } else {
@@ -99,6 +104,27 @@ export default function WithdrawalSettingsForm() {
               )}
             />
           </div>
+
+          <FormField
+            control={form.control}
+            name='manual'
+            render={({ field }) => (
+              <FormItem className='flex flex-row items-center justify-between rounded-lg border p-4 mb-4'>
+                <div className='space-y-0.5'>
+                  <FormLabel>Manual Withdrawal</FormLabel>
+                  <p className='text-sm text-muted-foreground'>Enable manual withdrawal approval</p>
+                </div>
+
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    disabled={isFetchingConvertion}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
           <Button type='submit' disabled={isLoading}>
             {isLoading ? 'Saving...' : 'Save'}

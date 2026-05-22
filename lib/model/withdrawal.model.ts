@@ -5,8 +5,7 @@ export interface IWithdrawal extends Document {
 
   amount: number
   coins: number
-  method: 'paypal'
-
+  method: 'paypal' | 'manual'
   payoutBatchId: string
   paypalEmail: string
   status: 'pending' | 'approved' | 'rejected' | 'paid'
@@ -21,7 +20,7 @@ const withdrawalSchema = new mongoose.Schema<IWithdrawal>(
     method: { type: String, default: 'paypal' },
     coins: { type: Number, required: true },
     paypalEmail: { type: String, required: true },
-    payoutBatchId: { type: String, required: true },
+    payoutBatchId: { type: String },
     status: {
       type: String,
       enum: ['pending', 'approved', 'rejected', 'paid'],

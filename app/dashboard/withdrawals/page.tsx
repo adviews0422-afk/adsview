@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { SyncLoader } from 'react-spinners'
+import toast from 'react-hot-toast'
 
 import {
   Table,
@@ -11,6 +12,8 @@ import {
   TableHead,
   TableCell,
 } from '@/components/ui/table'
+
+import { Button } from '@/components/ui/button'
 import WithdrawalSettingsForm from '@/components/forms/withdrawal-settings-form'
 
 export default function WithdrawalsPage() {
@@ -19,6 +22,7 @@ export default function WithdrawalsPage() {
   const [page, setPage] = useState(1)
   const [pages, setPages] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [actionLoading, setActionLoading] = useState<string | null>(null)
 
   const limit = 20
 
@@ -53,6 +57,35 @@ export default function WithdrawalsPage() {
     return () => clearTimeout(delay)
   }, [search])
 
+  const handleMarkAsPaid = async (id: string) => {
+    try {
+      setActionLoading(id)
+
+      const res = await fetch('/api/admin/mark-withdrawal-paid', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          withdrawalId: id,
+        }),
+      })
+
+      const json = await res.json()
+
+      if (json.status === 200) {
+        toast.success('Withdrawal marked as paid')
+        fetchData()
+      } else {
+        toast.error(json.message || 'Something went wrong')
+      }
+    } catch (error) {
+      toast.error('Something went wrong')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
   const statusColor = (status: string) => {
     switch (status) {
       case 'paid':
@@ -72,6 +105,7 @@ export default function WithdrawalsPage() {
         <h1 className='text-2xl font-bold mb-3'>Conversion</h1>
         <WithdrawalSettingsForm />
       </div>
+
       <h1 className='text-2xl font-bold'>Withdrawals</h1>
 
       <input
@@ -97,13 +131,14 @@ export default function WithdrawalsPage() {
               <TableHead>Status</TableHead>
               <TableHead>PayPal Email</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {data.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className='text-center py-10 text-gray-500'>
+                <TableCell colSpan={7} className='text-center py-10 text-gray-500'>
                   No withdrawals found
                 </TableCell>
               </TableRow>
@@ -125,6 +160,20 @@ export default function WithdrawalsPage() {
 
                   <TableCell className='text-gray-500'>
                     {new Date(w.createdAt).toLocaleString()}
+                  </TableCell>
+
+                  <TableCell>
+                    {w.method === 'manual' && w.status === 'pending' ? (
+                      <Button
+                        size='sm'
+                        disabled={actionLoading === w._id}
+                        onClick={() => handleMarkAsPaid(w._id)}
+                      >
+                        {actionLoading === w._id ? 'Processing...' : 'Mark as Paid'}
+                      </Button>
+                    ) : (
+                      '-'
+                    )}
                   </TableCell>
                 </TableRow>
               ))

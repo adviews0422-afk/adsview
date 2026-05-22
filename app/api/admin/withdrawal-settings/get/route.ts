@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
     conversionRate = await WithdrawalSettings.create({
       coins: 100000,
       convertion: 7,
+      manual: false,
     })
   }
   return NextResponse.json(

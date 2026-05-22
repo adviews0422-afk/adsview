@@ -7,7 +7,6 @@ export async function POST(req: Request) {
   try {
     await connectDB()
     const body = await req.json()
-    console.log('BODY MO', body)
     const eventType = body.event_type
     const resource = body.resource
 
@@ -29,6 +28,7 @@ export async function POST(req: Request) {
       const user = await User.findById(withdrawal.userId)
       if (user) {
         user.wallet.balance += withdrawal.coins
+        user.wallet.totalWithdrawn -= withdrawal.coins
         await user.save()
       }
     }

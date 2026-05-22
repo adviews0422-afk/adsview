@@ -10,6 +10,7 @@ export const LoginSchema = z.object({
 export const ConversionSchema = z.object({
   coins: z.coerce.number().min(1, { message: 'Coins is required' }),
   convertion: z.coerce.number().min(1, { message: 'Conversion is required' }),
+  manual: z.boolean().default(false),
 })
 
 export const RegisterSchema = z.object({

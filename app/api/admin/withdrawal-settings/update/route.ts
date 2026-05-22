@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(req: NextRequest) {
   await connectDB()
 
-  const { coins, convertion } = await req.json()
+  const { coins, convertion, manual } = await req.json()
 
   if (!coins || !convertion) {
     return NextResponse.json({ message: 'Invalid params!' }, { status: 400 })
@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
   if (conversionRate) {
     conversionRate.convertion = Number(convertion)
     conversionRate.coins = Number(coins)
+    conversionRate.manual = manual
     await conversionRate.save()
     return NextResponse.json(
       {

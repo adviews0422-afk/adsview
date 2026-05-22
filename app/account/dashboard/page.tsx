@@ -281,7 +281,7 @@ function Dashboard() {
                   await refetch()
                   await refetchWithdrawals()
 
-                  toast.success('Successfully transferred!')
+                  toast.success('Successfully requested withdrawal!')
                 }
               } catch (error) {
                 console.log(error)

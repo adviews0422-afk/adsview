@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
     convertionRate = await WithdrawalSettings.create({
       coins: 100000,
       convertion: 7,
+      manual: false,
     })
   }
 
@@ -38,32 +39,33 @@ export async function POST(req: NextRequest) {
 
   const amount = fullUnits * convertionRate.coins
   const totalToWithdraw = fullUnits * convertionRate.convertion
+  let payoutId
   try {
-    const request = new paypal.payouts.PayoutsPostRequest()
-    request.requestBody({
-      sender_batch_header: {
-        sender_batch_id: `batch_${Date.now()}`,
-        email_subject: 'You got paid!',
-      },
-      items: [
-        {
-          recipient_type: 'EMAIL',
-          receiver: email,
-          amount: {
-            value: totalToWithdraw.toFixed(2),
-            currency: 'PHP',
-          },
-          note: 'Thanks for using our platform!',
+    if (convertionRate.manual === false) {
+      const request = new paypal.payouts.PayoutsPostRequest()
+      request.requestBody({
+        sender_batch_header: {
+          sender_batch_id: `batch_${Date.now()}`,
+          email_subject: 'You got paid!',
         },
-      ],
-    })
+        items: [
+          {
+            recipient_type: 'EMAIL',
+            receiver: email,
+            amount: {
+              value: totalToWithdraw.toFixed(2),
+              currency: 'PHP',
+            },
+            note: 'Thanks for using our platform!',
+          },
+        ],
+      })
 
-    const response = await client().execute(request)
-
-    const payoutId = response.result?.batch_header?.payout_batch_id
-
-    if (!payoutId) {
-      return NextResponse.json({ message: 'Invalid PayPal response' }, { status: 500 })
+      const response = await client().execute(request)
+      payoutId = response.result?.batch_header?.payout_batch_id
+      if (!payoutId) {
+        return NextResponse.json({ message: 'Invalid PayPal response' }, { status: 500 })
+      }
     }
 
     user.wallet.balance -= amount
@@ -74,11 +76,11 @@ export async function POST(req: NextRequest) {
     const withdrawal = await Withdrawal.create({
       userId: user._id,
       amount: totalToWithdraw,
-      method: 'paypal',
+      method: 'manual',
       paypalEmail: email,
       coins: amount,
       status: 'pending',
-      payoutBatchId: payoutId,
+      payoutBatchId: convertionRate.manual ? '' : payoutId,
     })
 
     await Transaction.create({
@@ -90,7 +92,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         message: 'Payout successful',
-        payoutId,
         withdrawalId: withdrawal._id,
         status: 200,
       },
