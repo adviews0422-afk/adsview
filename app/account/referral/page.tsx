@@ -41,7 +41,7 @@ function Referral() {
   ]
 
   return (
-    <div className='flex w-full h-full flex-col p-4 gap-4'>
+    <div className='flex w-full h-full flex-col md:p-4 gap-4'>
       <div className='flex flex-col'>
         <Label size={'xl'}>How Referrals Work</Label>
         <Label size={'sm'}>

@@ -81,7 +81,7 @@ function Dashboard() {
   }
 
   return (
-    <div className='flex w-full h-full p-4 flex-col gap-6'>
+    <div className='flex w-full h-full md:p-4 flex-col gap-6'>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4 w-full'>
         <StatsCard
           icon={<Image src='/coin.png' width={40} height={40} alt='' />}

@@ -56,7 +56,7 @@ export default function TransactionsPage() {
   }, [search])
 
   return (
-    <div className='p-6 space-y-6 w-full'>
+    <div className='p-4 space-y-6 w-full'>
       <Label size={'xl'}>Transactions</Label>
 
       {/* Search */}

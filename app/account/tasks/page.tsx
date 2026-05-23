@@ -34,7 +34,7 @@ function Profile() {
   }
 
   return (
-    <div className='flex w-full h-full p-4 flex-col gap-4'>
+    <div className='flex w-full h-full md:p-4 flex-col gap-4'>
       {currentTask?.data && (
         <TaskCard
           isClaimed={currentTask?.data?.isClaimed}

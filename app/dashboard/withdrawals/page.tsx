@@ -102,7 +102,7 @@ export default function WithdrawalsPage() {
   }
 
   return (
-    <div className='p-6 space-y-6 w-full'>
+    <div className='p-4 space-y-6 w-full'>
       <div className='group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'>
         <Label size={'xl'}>Conversion</Label>
         <WithdrawalSettingsForm />

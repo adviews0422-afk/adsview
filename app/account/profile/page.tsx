@@ -17,7 +17,7 @@ function Profile() {
           <Label size={'xl'}>{data?.user.name.slice(0, 1)}</Label>
         </div>
       </div>
-      <div className='flex flex-col px-5 w-full md:w-[500px]'>
+      <div className='flex flex-col md:px-5 w-full md:w-[500px]'>
         <ProfileUpdateForm />
         <Separator className='my-4' />
         <Label size={'lg'} className='px-0'>
