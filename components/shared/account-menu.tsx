@@ -13,8 +13,8 @@ const AccountMenu = () => {
         const Icon = menu.icon
         return (
           <Link
-            className={`flex flex-row px-5 py-4 cursor-pointer hover:bg-slate-100 w-full items-center rounded-md ${
-              pathname === menu.path ? 'bg-slate-100' : ''
+            className={`flex flex-row px-5 py-4 cursor-pointer hover:bg-primary/10 w-full items-center rounded-md ${
+              pathname === menu.path ? 'bg-primary/10' : ''
             }`}
             key={index}
             href={menu.path}
@@ -28,7 +28,7 @@ const AccountMenu = () => {
         )
       })}
       <Label
-        className={`flex flex-row px-5 py-3 cursor-pointer hover:bg-slate-100 w-full items-center`}
+        className={`flex flex-row px-5 py-4 cursor-pointer hover:bg-primary/10 w-full items-center rounded-md`}
         onClick={() => signOut()}
       >
         <FaSignOutAlt

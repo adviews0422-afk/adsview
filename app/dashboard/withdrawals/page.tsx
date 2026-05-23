@@ -15,6 +15,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import WithdrawalSettingsForm from '@/components/forms/withdrawal-settings-form'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 export default function WithdrawalsPage() {
   const [data, setData] = useState<any[]>([])
@@ -101,15 +103,14 @@ export default function WithdrawalsPage() {
 
   return (
     <div className='p-6 space-y-6 w-full'>
-      <div className='bg-slate-100 p-4 rounded-md shadow-lg'>
-        <h1 className='text-2xl font-bold mb-3'>Conversion</h1>
+      <div className='group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'>
+        <Label size={'xl'}>Conversion</Label>
         <WithdrawalSettingsForm />
       </div>
 
       <h1 className='text-2xl font-bold'>Withdrawals</h1>
 
-      <input
-        className='border p-2 w-64 rounded'
+      <Input
         placeholder='Search name or email...'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -125,10 +126,18 @@ export default function WithdrawalsPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>
+                <Label size={'md'}>User</Label>
+              </TableHead>
+              <TableHead>
+                <Label size={'md'}>Amount</Label>
+              </TableHead>
+              <TableHead>
+                <Label size={'md'}>Method</Label>
+              </TableHead>
+              <TableHead>
+                <Label size={'md'}>Status</Label>
+              </TableHead>
               <TableHead>PayPal Email</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Action</TableHead>
@@ -165,7 +174,7 @@ export default function WithdrawalsPage() {
                   <TableCell>
                     {w.method === 'manual' && w.status === 'pending' ? (
                       <Button
-                        size='sm'
+                        variant={'outline'}
                         disabled={actionLoading === w._id}
                         onClick={() => handleMarkAsPaid(w._id)}
                       >
@@ -184,25 +193,27 @@ export default function WithdrawalsPage() {
 
       {data?.length > 0 && (
         <div className='w-full flex justify-center items-center gap-4 pt-4'>
-          <button
+          <Button
+            variant={'outline'}
             disabled={page === 1 || loading}
             onClick={() => setPage(page - 1)}
             className='border px-3 py-1 rounded disabled:opacity-50'
           >
             Prev
-          </button>
+          </Button>
 
-          <span className='text-sm text-gray-600'>
+          <Label size={'sm'}>
             Page {page} / {pages}
-          </span>
+          </Label>
 
-          <button
+          <Button
+            variant={'outline'}
             disabled={page === pages || loading}
             onClick={() => setPage(page + 1)}
             className='border px-3 py-1 rounded disabled:opacity-50'
           >
             Next
-          </button>
+          </Button>
         </div>
       )}
     </div>

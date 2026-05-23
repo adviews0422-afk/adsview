@@ -11,6 +11,9 @@ import {
   TableHead,
   TableCell,
 } from '@/components/ui/table'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
 
 export default function TransactionsPage() {
   const [data, setData] = useState<any[]>([])
@@ -54,11 +57,10 @@ export default function TransactionsPage() {
 
   return (
     <div className='p-6 space-y-6 w-full'>
-      <h1 className='text-2xl font-bold'>Transactions</h1>
+      <Label size={'xl'}>Transactions</Label>
 
       {/* Search */}
-      <input
-        className='border p-2 w-64 rounded'
+      <Input
         placeholder='Search name or email...'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -76,11 +78,22 @@ export default function TransactionsPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Date</TableHead>
+              <TableHead>
+                <Label size={'md'}>User</Label>
+              </TableHead>
+              <TableHead>
+                <Label size={'md'}>Type</Label>
+              </TableHead>
+
+              <TableHead>
+                <Label size={'md'}>Amount</Label>
+              </TableHead>
+              <TableHead>
+                <Label size={'md'}>Description</Label>
+              </TableHead>
+              <TableHead>
+                <Label size={'md'}>Date</Label>
+              </TableHead>
             </TableRow>
           </TableHeader>
 
@@ -94,19 +107,25 @@ export default function TransactionsPage() {
             ) : (
               data.map((t) => (
                 <TableRow key={t._id}>
-                  <TableCell>
-                    <div className='font-medium'>{t.userId?.name || 'Unknown'}</div>
-                    <div className='text-xs text-gray-500'>{t.userId?.email}</div>
+                  <TableCell className='flex flex-col'>
+                    <Label size={'xs'}>{t.userId?.name || 'Unknown'}</Label>
+                    <Label size={'xs'}>{t.userId?.email}</Label>
                   </TableCell>
 
-                  <TableCell>{t.type}</TableCell>
+                  <TableCell>
+                    <Label size={'xs'}>{t.type}</Label>
+                  </TableCell>
 
-                  <TableCell className='font-semibold'>+{t.amount} Coins</TableCell>
+                  <TableCell className='font-semibold'>
+                    <Label size={'xs'}>+{t.amount} Coins</Label>
+                  </TableCell>
 
-                  <TableCell>{t.description || '-'}</TableCell>
+                  <TableCell>
+                    <Label size={'xs'}>{t.description || '-'}</Label>
+                  </TableCell>
 
                   <TableCell className='text-gray-500'>
-                    {new Date(t.createdAt).toLocaleString()}
+                    <Label size={'xs'}>{new Date(t.createdAt).toLocaleString()}</Label>
                   </TableCell>
                 </TableRow>
               ))
@@ -117,25 +136,27 @@ export default function TransactionsPage() {
 
       {data?.length > 0 && (
         <div className='w-full flex justify-center items-center gap-4 pt-4'>
-          <button
+          <Button
+            variant={'outline'}
             disabled={page === 1 || loading}
             onClick={() => setPage(page - 1)}
             className='border px-3 py-1 rounded disabled:opacity-50'
           >
             Prev
-          </button>
+          </Button>
 
-          <span className='text-sm text-gray-600'>
+          <Label size={'sm'}>
             Page {page} / {pages}
-          </span>
+          </Label>
 
-          <button
+          <Button
+            variant={'outline'}
             disabled={page === pages || loading}
             onClick={() => setPage(page + 1)}
             className='border px-3 py-1 rounded disabled:opacity-50'
           >
             Next
-          </button>
+          </Button>
         </div>
       )}
     </div>

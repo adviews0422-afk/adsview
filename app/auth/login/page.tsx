@@ -20,7 +20,7 @@ export default function Login({ searchParams: { callbackUrl } }: LoginProps) {
 
   return (
     <div className='w-full min-h-100vh flex justify-center items-center'>
-      <div className='min-w-[350px] max-w-[500px] border shadow-sm p-5 flex flex-col mt-5 mb-5'>
+      <div className='min-w-[350px] max-w-[500px] border group relative overflow-hidden rounded-md border border-primary/20  bg-[#070118] p-5 flex flex-col mt-12 mb-12'>
         <Label size={'xl'} className='px-0 my-3'>
           Login
         </Label>

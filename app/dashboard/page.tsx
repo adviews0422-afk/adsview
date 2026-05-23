@@ -26,30 +26,35 @@ function Dashboard() {
   return (
     <div className='w-full space-y-6 p-4'>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-        <div className='flex items-center gap-4 rounded border bg-white p-5 shadow-lg'>
-          <UserIcon size={50} className='bg-slate-100 p-3 text-primary' />
+        <div className='flex flex-row group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'>
+          <div className='absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-80' />
+          <div className='absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl transition-all duration-500 group-hover:bg-primary/30' />
 
-          <div>
+          <UserIcon size={50} className=' p-3 text-primary' />
+
+          <div className='flex flex-col'>
             <p className='text-sm text-gray-600'>Daily Active Users</p>
             <p className='text-3xl text-gray-700'>{data?.dau}</p>
             <p className='text-xs text-gray-500'>from last day</p>
           </div>
         </div>
 
-        <div className='flex items-center gap-4 rounded border bg-white p-5 shadow-lg'>
-          <UserIcon size={50} className='bg-slate-100 p-3 text-primary' />
+        <div className='flex flex-row group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'>
+          <div className='absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-80' />
+          <div className='absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl transition-all duration-500 group-hover:bg-primary/30' />
 
-          <div>
-            <p className='text-sm text-gray-600'>Monthly Active Users</p>
-            <p className='text-3xl text-gray-700'>{data?.mau}</p>
-            <p className='text-xs text-gray-500'>from last month</p>
+          <UserIcon size={50} className='p-3 text-primary' />
+          <div className='flex flex-col'>
+            <Label size={'md'}>Monthly Active Users</Label>
+            <Label size={'xl'}>{data?.mau}</Label>
+            <Label size={'xs'}>from last month</Label>
           </div>
         </div>
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
         <div className='space-y-3'>
-          <Label size='lg'>Recent Transactions</Label>
+          <Label size='xl'>Recent Transactions</Label>
 
           <div className='flex flex-col gap-3'>
             {data?.recentTransactions?.length === 0 ? (
@@ -60,7 +65,7 @@ function Dashboard() {
               data?.recentTransactions?.map((item: TransactionProps, index: number) => (
                 <div
                   key={index}
-                  className='flex justify-between items-center border rounded-md p-4 bg-white hover:bg-gray-50 transition-colors'
+                  className='flex flex-row justify-between group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'
                 >
                   <div className='flex flex-col'>
                     <Label size='sm'>{item.userId?.name || 'Unknown'}</Label>
@@ -83,7 +88,7 @@ function Dashboard() {
         </div>
 
         <div className='space-y-3'>
-          <Label size='lg'>Recent Withdrawals</Label>
+          <Label size='xl'>Recent Withdrawals</Label>
 
           <div className='flex flex-col gap-3'>
             {data?.recentWithdrawals?.length === 0 ? (
@@ -94,7 +99,7 @@ function Dashboard() {
               data?.recentWithdrawals?.map((item: any, index: number) => (
                 <div
                   key={index}
-                  className='flex justify-between items-center border rounded-md p-4 bg-white hover:bg-gray-50 transition-colors'
+                  className='flex flex-row justify-between group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'
                 >
                   <div className='flex flex-col'>
                     <Label size='sm'>{item.userId?.name || 'Unknown'}</Label>

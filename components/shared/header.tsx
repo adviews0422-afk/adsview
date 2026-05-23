@@ -33,18 +33,18 @@ const Header = () => {
   const [open, setOpen] = useState(false)
   const currentMenu = session?.user.role === 'admin' ? DASHBOARD_MENU : ACCOUNT_MENU
   return (
-    <div className='z-50  items-center sticky top-0 left-0 bg-white z-10 shadow-sm md:justify-none'>
+    <div className='z-50 items-center sticky top-0 left-0 z-10 shadow-sm md:justify-none  bg-[#070118]'>
       <div className='container flex flex-row w-full px-5 py-3 justify-between'>
         <Drawer direction={'left'} open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button variant='secondary' className='block md:hidden m-0 p-2 bg-slate-100'>
+            <Button variant='secondary' className='block md:hidden m-0 p-2 bg-primary/10'>
               <Menu className='h-6 w-6 text-primary rounded-full ' />
             </Button>
           </DrawerTrigger>
           <VisuallyHidden>
             <DrawerTitle>Menu</DrawerTitle>
           </VisuallyHidden>
-          <DrawerContent className='h-screen top-0 left-0 mt-0 w-[300px] rounded-none'>
+          <DrawerContent className='h-screen top-0 left-0 mt-0 w-[300px] rounded-none bg-[#070118]'>
             <div className='flex flex-col p-4'>
               {session?.user &&
                 currentMenu.map((item, index) => {
@@ -108,7 +108,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className='flex-row space-x-3 p-2 hidden md:flex'>
+        <div className='flex-row space-x-3 p-2 hidden md:flex '>
           {status === 'loading' ? (
             <Skeleton className='w-[40px] h-[40px] md:w-[100px] rounded-full text-end' />
           ) : (
@@ -116,12 +116,12 @@ const Header = () => {
               {status === 'authenticated' ? (
                 <>
                   <DropdownMenu>
-                    <DropdownMenuTrigger className='flex flex-row items-center rounded-full'>
-                      <div className='rounded-full bg-slate-100 p-3'>
+                    <DropdownMenuTrigger className='flex flex-row items-center rounded-full bg-[#070118]'>
+                      <div className='rounded-full bg-primary/20 p-3'>
                         <User className='h-5 w-5 text-primary' />
                       </div>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent className='bg-[#070118] border border-primary/20'>
                       {currentMenu.map((item, index) => (
                         <DropdownMenuItem key={index}>
                           <Link className='text-decoration-none' href={item.path}>

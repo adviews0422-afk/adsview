@@ -30,7 +30,7 @@ export default function RootLayout({
         <StoreProvider>
           <AuthProvider>
             <Header />
-            <div>{children}</div>
+            <div className='bg-gray-900'>{children}</div>
             <Footer />
           </AuthProvider>
           <Toaster position='top-center' />

@@ -26,6 +26,7 @@ import {
 } from '@/store/action/dashboardAction'
 
 import toast from 'react-hot-toast'
+import { Label } from '../ui/label'
 
 export default function WithdrawalSettingsForm() {
   const {
@@ -109,10 +110,10 @@ export default function WithdrawalSettingsForm() {
             control={form.control}
             name='manual'
             render={({ field }) => (
-              <FormItem className='flex flex-row items-center justify-between rounded-lg border p-4 mb-4'>
-                <div className='space-y-0.5'>
-                  <FormLabel>Manual Withdrawal</FormLabel>
-                  <p className='text-sm text-muted-foreground'>Enable manual withdrawal approval</p>
+              <FormItem className='flex flex-row items-center justify-between rounded-lg border border-primary/20 p-4 mb-4'>
+                <div className='space-y-0.5 flex flex-col'>
+                  <Label size={'md'}>Manual Withdrawal</Label>
+                  <Label size={'xs'}>Enable manual withdrawal approval</Label>
                 </div>
 
                 <FormControl>

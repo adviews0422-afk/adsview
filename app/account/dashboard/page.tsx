@@ -21,6 +21,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 
 import StatsCard from '@/components/ui/stats-card'
 import { useGetWithdrawalsQuery } from '@/store/action/withdrawal'
+import { Input } from '@/components/ui/input'
 
 function Dashboard() {
   const { data } = useSession()
@@ -106,7 +107,7 @@ function Dashboard() {
       </div>
       <div className='flex flex-col gap-4 w-full w-100 md:flex-row'>
         <div className='flex flex-col gap-3 w-full'>
-          <Label size='lg'>Withdrawals</Label>
+          <Label size='xl'>Withdrawals</Label>
 
           {withdrawalData?.data?.length === 0 ? (
             <div className='border rounded-md p-6 bg-white text-center text-gray-500'>
@@ -116,8 +117,11 @@ function Dashboard() {
             withdrawalData?.data?.map((item: any, index: number) => (
               <div
                 key={index}
-                className='flex items-center justify-between p-4 rounded-md w-full border bg-white hover:bg-gray-50 transition-colors'
+                className='flex flex-row p-6 gap-4 justify-between items-center group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'
               >
+                <div className='absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-80' />
+                <div className='absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl transition-all duration-500 group-hover:bg-primary/30' />
+
                 <div className='flex flex-col gap-1'>
                   <Label size='sm'>{item.paypalEmail}</Label>
 
@@ -152,7 +156,7 @@ function Dashboard() {
         </div>
         {/* Transactions */}
         <div className='flex flex-col gap-3 w-full'>
-          <Label size='lg'>Recent Transactions</Label>
+          <Label size='xl'>Recent Transactions</Label>
 
           {transactionData?.data?.length === 0 ? (
             <div className='border rounded-md p-6 bg-white text-center text-gray-500'>
@@ -161,9 +165,12 @@ function Dashboard() {
           ) : (
             transactionData?.data?.map((items: TransactionProps, index: number) => (
               <div
-                className='flex items-center justify-between p-4 rounded-md w-full border bg-white hover:bg-gray-50 transition-colors'
                 key={index}
+                className='flex flex-row p-6 gap-4 justify-between items-center group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'
               >
+                <div className='absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-80' />
+                <div className='absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl transition-all duration-500 group-hover:bg-primary/30' />
+
                 <div className='flex flex-col gap-2'>
                   <Label size='sm'>{items.userId.name}</Label>
 
@@ -205,26 +212,26 @@ function Dashboard() {
 
       {/* Withdrawal Dialog */}
       <Dialog open={value} onOpenChange={setValue}>
-        <DialogContent className='w-md max-h-[90vh] overflow-y-auto'>
-          <h2 className='text-xl font-bold text-gray-800'>Coin Conversion</h2>
+        <DialogContent className='w-md max-h-[90vh] overflow-y-auto  bg-[#070118] shadow-lg border border-primary/20'>
+          <Label size={'xl'}>Coin Conversion</Label>
 
-          <p className='text-sm text-gray-500 mt-1'>Convert your earned coins to cash via PayPal</p>
+          <Label size={'sm'}>Convert your earned coins to cash via PayPal</Label>
 
-          <div className='mt-6 bg-gray-50 rounded-xl p-4 border'>
+          <div className='mt-6 bg-primary/20 rounded-xl p-4 border border-primary/20'>
             <div className='flex justify-between text-sm'>
-              <span className='text-gray-600'>
+              <Label size={'xs'}>
                 {Math.floor(
                   profileData?.data?.wallet?.balance / profileData?.conversionRate?.coins,
                 )}{' '}
                 x {profileData?.conversionRate?.coins} Coins
-              </span>
+              </Label>
 
-              <span className='font-semibold text-gray-800'>
+              <Label size={'sm'}>
                 ₱
                 {Math.floor(
                   profileData?.data?.wallet?.balance / profileData?.conversionRate?.coins,
                 ) * profileData?.conversionRate?.convertion}
-              </span>
+              </Label>
             </div>
 
             <div className='mt-2 text-xs text-gray-500'>
@@ -236,7 +243,7 @@ function Dashboard() {
           <div className='mt-5'>
             <label className='text-sm font-medium text-gray-700'>PayPal Email</label>
 
-            <input
+            <Input
               type='email'
               value={email}
               onChange={(e) => {

@@ -20,7 +20,10 @@ const TaskCard = ({
   const isComplete = completed >= total
 
   return (
-    <div className='w-full p-5 bg-white shadow-lg rounded-lg border flex flex-col md:flex-row md:justify-center md:items-center gap-4'>
+    <div className='group relative overflow-hidden rounded-md border border-primary/20 bg-[#070118] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,102,241,0.25)]'>
+      <div className='absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-80' />
+      <div className='absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl transition-all duration-500 group-hover:bg-primary/30' />
+
       <div className='w-full'>
         <div className='flex items-center justify-between mb-3'>
           <Label size={'md'}>Task</Label>
@@ -28,7 +31,7 @@ const TaskCard = ({
             {completed}/{total}
           </Label>
         </div>
-        <div className='w-full h-3 bg-slate-200 rounded-full overflow-hidden mb-4'>
+        <div className='w-full h-3 bg-primary/20 rounded-full overflow-hidden mb-4'>
           <div
             className='h-full bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-500'
             style={{ width: `${progress}%` }}
@@ -43,7 +46,7 @@ const TaskCard = ({
         </Label>
       </div>
 
-      <Button onClick={onClaim} disabled={!isComplete || isLoading || isClaimed}>
+      <Button onClick={onClaim} className='z-[1]' disabled={!isComplete || isLoading || isClaimed}>
         {isComplete
           ? !isLoading
             ? isClaimed

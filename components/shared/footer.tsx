@@ -14,33 +14,33 @@ export default function Footer() {
   const pathname = usePathname()
   const router = useRouter()
   return (
-    <div className={`py-6 w-full bg-slate-100 `}>
+    <div className={`py-6 w-full  bg-[#070118]`}>
       <div className='container flex flex-col justify-between md:flex-row px-0'>
-        <div className='flex flex-col p-4'>
-          <Label size={'lg'}>About Us</Label>
+        <div className='flex flex-col p-4 gap-6'>
+          <Label size={'xl'}>About Us</Label>
           <Label size={'md'}>How it works?</Label>
           <Label size={'md'}>How we started</Label>
           <Label size={'md'}>Blogs</Label>
           <Label size={'md'}>News</Label>
         </div>
-        <div className='flex flex-col p-4'>
-          <Label size={'lg'}>Popular Search</Label>
+        <div className='flex flex-col p-4 gap-6'>
+          <Label size={'xl'}>Popular Search</Label>
           <Label size={'md'}>How it works?</Label>
           <Label size={'md'}>How we started</Label>
           <Label size={'md'}>Blogs</Label>
           <Label size={'md'}>News</Label>
         </div>
-        <div className='flex flex-col p-4'>
-          <Label size={'lg'}>Follow us on</Label>
+        <div className='flex flex-col p-4 gap-6'>
+          <Label size={'xl'}>Follow us on</Label>
           <div className='flex flex-row'>
-            <FiFacebook className='h-10 w-10 p-1' />
-            <X className='h-10 w-10 p-1' />
-            <LinkedInLogoIcon className='h-10 w-10 p-1' />
+            <FiFacebook className='h-10 w-10 p-1 text-primary' />
+            <X className='h-10 w-10 p-1 text-primary' />
+            <LinkedInLogoIcon className='h-10 w-10 p-1 text-primary' />
           </div>
         </div>
 
-        <div className='flex flex-col p-4 gap-3'>
-          <Label size={'lg'}>Daily News Letter?</Label>
+        <div className='flex flex-col p-4 gap-6'>
+          <Label size={'xl'}>Daily News Letter?</Label>
           <Input placeholder='Email Address' />
           <Button className='max-w-[120px]'>Subscribe</Button>
         </div>

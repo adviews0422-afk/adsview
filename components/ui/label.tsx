@@ -11,11 +11,11 @@ const labelVariants = cva(
   {
     variants: {
       size: {
-        xs: 'text-xs text-gray-500 leading-relaxed',
-        sm: 'text-sm text-gray-500 leading-relaxed',
-        md: 'text-sm text-gray-700 leading-relaxed',
-        lg: 'text-lg text-semibold leading-relaxed',
-        xl: 'text-2xl text-bold leading-relaxed',
+        xs: 'text-xs text-slate-400 leading-relaxed',
+        sm: 'text-sm text-slate-400 leading-relaxed',
+        md: 'text-sm text-slate-400',
+        lg: 'text-lg font-bold text-slate-400',
+        xl: 'text-xl text-primary',
       },
     },
     defaultVariants: {

@@ -13,7 +13,7 @@ function Profile() {
   return (
     <div className='flex items-center w-full h-100 p-0 flex-col'>
       <div className='w-full flex flex-col justify-center items-center'>
-        <div className='mt-8 bg-slate-100 rounded h-[100px] w-[100px] flex justify-center items-center rounded-full m-0 text-primary'>
+        <div className='mt-8 bg-primary/20 rounded h-[100px] w-[100px] flex justify-center items-center rounded-full m-0 text-primary'>
           <Label size={'xl'}>{data?.user.name.slice(0, 1)}</Label>
         </div>
       </div>
