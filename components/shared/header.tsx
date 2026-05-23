@@ -33,11 +33,11 @@ const Header = () => {
   const [open, setOpen] = useState(false)
   const currentMenu = session?.user.role === 'admin' ? DASHBOARD_MENU : ACCOUNT_MENU
   return (
-    <div className='z-50 items-center sticky top-0 left-0 z-10 shadow-sm md:justify-none  bg-[#070118]'>
+    <div className='z-50 items-center sticky top-0 left-0 z-10 shadow-sm lg:justify-none  bg-[#070118]'>
       <div className='container flex flex-row w-full px-5 py-3 justify-between'>
         <Drawer direction={'left'} open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button variant='secondary' className='block md:hidden m-0 p-2 bg-primary/10'>
+            <Button variant='secondary' className='block lg:hidden m-0 p-2 bg-primary/10'>
               <Menu className='h-6 w-6 text-primary rounded-full ' />
             </Button>
           </DrawerTrigger>
@@ -108,7 +108,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className='flex-row space-x-3 p-2 hidden md:flex '>
+        <div className='flex-row space-x-3 p-2 hidden lg:flex '>
           {status === 'loading' ? (
             <Skeleton className='w-[40px] h-[40px] md:w-[100px] rounded-full text-end' />
           ) : (
