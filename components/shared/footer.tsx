@@ -40,9 +40,11 @@ export default function Footer() {
         </div>
 
         <div className='flex flex-col p-4 gap-6'>
-          <Label size={'xl'}>Daily News Letter?</Label>
-          <Input placeholder='Email Address' />
-          <Button className='max-w-[120px]'>Subscribe</Button>
+          <Label size={'xl'}>Contact Us</Label>
+          <Link className={'flex flex-row gap-2'} href={'mailto:adviews0422@gmail.com'}>
+            <Label>Email:</Label>
+            <Label>adviews0422@gmail.com</Label>
+          </Link>
         </div>
       </div>
       <div className='flex flex-col'>

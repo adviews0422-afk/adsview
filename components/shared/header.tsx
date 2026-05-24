@@ -34,7 +34,7 @@ const Header = () => {
   const currentMenu = session?.user.role === 'admin' ? DASHBOARD_MENU : ACCOUNT_MENU
   return (
     <div className='z-50 items-center sticky top-0 left-0 z-10 shadow-sm lg:justify-none  bg-[#070118]'>
-      <div className='container flex flex-row w-full px-5 py-3 justify-between'>
+      <div className='container flex flex-row w-full px-4 py-3 justify-between'>
         <Drawer direction={'left'} open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
             <Button variant='secondary' className='block lg:hidden m-0 p-2 bg-primary/10'>

@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className='w-full flex flex-col justify-center bg-gray'>
       <div className='w-full mb-5 bg-[#070118]/10'>
-        <div className='container mx-auto flex flex-col md:flex-row items-center justify-between gap-10 py-10'>
+        <div className='container mx-auto flex flex-col md:flex-row items-center justify-between gap-10 py-10 px-4'>
           <div className='md:w-1/2 w-full flex flex-col'>
             <Label size='xl'>Earn Coins by Completing Simple Tasks</Label>
 
