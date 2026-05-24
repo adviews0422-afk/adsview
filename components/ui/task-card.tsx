@@ -43,7 +43,7 @@ const TaskCard = ({
         </Label>
       </div>
 
-      <Button onClick={onClaim} className='z-10' disabled={false}>
+      <Button onClick={onClaim} className='z-10' disabled={completed !== total}>
         {isComplete
           ? !isLoading
             ? isClaimed
