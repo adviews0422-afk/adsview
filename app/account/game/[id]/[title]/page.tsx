@@ -3,24 +3,24 @@
 import { useEffect, useRef, useState } from 'react'
 import { GAMES } from '@/utils/data'
 import { useParams } from 'next/navigation'
-import { useCreditTaskCountMutation } from '@/store/action/taskAction'
+import { useCreditTaskMutation } from '@/store/action/taskAction'
 import { Fullscreen } from 'lucide-react'
+
+const INITIAL_TIME = 900
 
 export default function GamePage() {
   const params = useParams()
   const id = params.id as string
+  const title = params.title as string
 
   const iframeContainerRef = useRef<HTMLDivElement>(null)
+  const isClaimingRef = useRef(false)
 
-  const [creditTask, { isLoading: isLoadingHilltopTask }] = useCreditTaskCountMutation()
+  const [creditTask] = useCreditTaskMutation()
 
   const game = GAMES?.find((items) => items?.id === id)
 
-  const [timeLeft, setTimeLeft] = useState(1 * 60)
-
-  const onTimerFinish = async () => {
-    await creditTask({})
-  }
+  const [timeLeft, setTimeLeft] = useState(INITIAL_TIME)
 
   const handleFullscreen = async () => {
     if (!iframeContainerRef.current) return
@@ -33,17 +33,32 @@ export default function GamePage() {
   }
 
   useEffect(() => {
-    if (timeLeft <= 0) {
-      onTimerFinish()
-      return
-    }
-
     const interval = setInterval(() => {
       setTimeLeft((prev) => prev - 1)
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [timeLeft])
+  }, [])
+
+  useEffect(() => {
+    if (timeLeft > 0 || isClaimingRef.current) return
+
+    const claimReward = async () => {
+      try {
+        isClaimingRef.current = true
+
+        await creditTask(decodeURIComponent(title)).unwrap()
+
+        setTimeLeft(INITIAL_TIME)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        isClaimingRef.current = false
+      }
+    }
+
+    claimReward()
+  }, [timeLeft, title, creditTask])
 
   if (!game) {
     return (
@@ -58,7 +73,7 @@ export default function GamePage() {
 
   return (
     <div ref={iframeContainerRef} className='relative h-[89vh] w-full bg-black'>
-      <div
+      {/*    <div
         style={{
           position: 'absolute',
           top: 10,
@@ -71,10 +86,9 @@ export default function GamePage() {
           borderRadius: 8,
         }}
       >
-        {timeLeft > 0 ? `⏱ ${minutes}:${seconds.toString().padStart(2, '0')}` : 'Claimed'}
-      </div>
+        ⏱ {minutes}:{seconds.toString().padStart(2, '0')}
+      </div>*/}
 
-      {/* Fullscreen Button */}
       <button
         onClick={handleFullscreen}
         className='absolute right-3 top-3 z-20 rounded-lg bg-black/80 px-4 py-2 text-sm text-white transition hover:bg-black'
@@ -82,7 +96,6 @@ export default function GamePage() {
         <Fullscreen />
       </button>
 
-      {/* Game iframe */}
       <iframe
         src={game.iframe}
         style={{

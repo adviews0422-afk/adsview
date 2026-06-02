@@ -8,22 +8,24 @@ export const taskApi = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
-    taskCompleted: builder.mutation({
+    getUnClaimedTask: builder.query({
       query: () => ({
+        url: `/api/tasks/get-all-unclaimed`,
+        method: 'POST',
+      }),
+    }),
+    completeTask: builder.mutation({
+      query: (id: number) => ({
         url: `/api/tasks/completed`,
         method: 'POST',
+        body: { id },
       }),
     }),
-    getCurrentTask: builder.query({
-      query: () => ({
-        url: `/api/account/get-task`,
+    creditTask: builder.mutation({
+      query: (title: string) => ({
+        url: `/api/tasks/credit-task`,
         method: 'POST',
-      }),
-    }),
-    creditTaskCount: builder.mutation({
-      query: () => ({
-        url: `/api/webhooks/creditTaskCount`,
-        method: 'POST',
+        body: { title },
       }),
     }),
   }),
@@ -31,7 +33,7 @@ export const taskApi = apiSlice.injectEndpoints({
 
 export const {
   useGetCpxResearchTaskQuery,
-  useTaskCompletedMutation,
-  useGetCurrentTaskQuery,
-  useCreditTaskCountMutation,
+  useGetUnClaimedTaskQuery,
+  useCreditTaskMutation,
+  useCompleteTaskMutation,
 } = taskApi

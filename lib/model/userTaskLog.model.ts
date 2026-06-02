@@ -17,7 +17,6 @@ const userTaskLogSchema = new mongoose.Schema<IUserTaskLog>(
     },
     type: {
       type: String,
-      enum: ['task'],
       required: true,
     },
     date: {
