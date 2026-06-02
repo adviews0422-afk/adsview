@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SyncLoader } from 'react-spinners'
 import { useRouter } from 'next/navigation'
 
@@ -9,23 +9,27 @@ import TaskCard from '@/components/ui/task-card'
 
 import { GAMES, GAMES2 } from '@/utils/data'
 
-import {
-  useCreditTaskCountMutation,
-  useGetCurrentTaskQuery,
-  useTaskCompletedMutation,
-} from '@/store/action/taskAction'
+import { useCompleteTaskMutation, useGetUnClaimedTaskQuery } from '@/store/action/taskAction'
 import { Label } from '@/components/ui/label'
 
 function Profile() {
   const router = useRouter()
 
-  const [taskCompleted, { isLoading }] = useTaskCompletedMutation({})
+  const [claimingId, setClaimingId] = useState<string | null>(null)
 
-  const { data: currentTask, isLoading: isGettingCurrentTask, refetch } = useGetCurrentTaskQuery({})
+  const [completeTask] = useCompleteTaskMutation()
 
-  const loading = isGettingCurrentTask || isLoading
+  const {
+    data: unClaimedTask,
+    isLoading: isGettingUnclaimedTask,
+    refetch,
+  } = useGetUnClaimedTaskQuery({})
 
-  if (loading) {
+  useEffect(() => {
+    refetch()
+  }, [])
+
+  if (isGettingUnclaimedTask) {
     return (
       <div className='w-full min-h-[70vh] flex justify-center items-center'>
         <SyncLoader color='#3b82f6' size={12} />
@@ -35,39 +39,58 @@ function Profile() {
 
   return (
     <div className='flex w-full h-full md:p-4 flex-col gap-4'>
-      {currentTask?.data && (
+      {unClaimedTask?.data?.map((items: any) => (
         <TaskCard
-          isClaimed={currentTask?.data?.isClaimed}
-          completed={currentTask?.data?.count}
-          isLoading={isLoading}
+          key={items._id}
+          data={items}
+          isLoading={claimingId === items._id}
           onClaim={async () => {
-            await taskCompleted({})
-            await refetch()
+            try {
+              setClaimingId(items._id)
+
+              await completeTask(items._id).unwrap()
+              await refetch()
+            } finally {
+              setClaimingId(null)
+            }
           }}
         />
-      )}
+      ))}
 
-      <Label size={'lg'}>Play a game for 15 minutes to earn credit for 1 completed task.</Label>
+      <Label size='lg'>Earn Coins by Playing Games</Label>
+      <Label size={'xs'}>
+        Play any game for at least 15 minutes to earn coins. Make sure the game remains active
+        during the required playtime to qualify for rewards.
+      </Label>
+      <Label size={'xs'}>
+        Important Notes: Do not close or refresh the game page while playing. Do not skip, block, or
+        interfere with advertisements displayed during gameplay. Rewards may not be credited if ads
+        are skipped or if gameplay is interrupted before the required duration. Coins will be
+        awarded automatically once the playtime requirement has been successfully completed. Enjoy
+        playing and start earning coins!
+      </Label>
+
       <div className='grid grid-cols-12 gap-4'>
         {GAMES.map((items: any, index: number) => (
           <div className='col-span-12 md:col-span-4' key={index}>
             <ProductCard
               productName={items.title}
               image={items.image}
-              onClick={async () => {
-                router.push(`/account/game/${items.id}`)
+              onClick={() => {
+                router.push(`/account/game/${items.id}/${items.title}`)
               }}
             />
           </div>
         ))}
       </div>
+
       <div className='grid grid-cols-12 gap-4'>
         {GAMES2.map((items: any, index: number) => (
           <div className='col-span-12 md:col-span-4' key={index}>
             <ProductCard
               productName={items.title}
               image={items.image}
-              onClick={async () => {
+              onClick={() => {
                 router.push(`/account/game/${items.id}`)
               }}
             />

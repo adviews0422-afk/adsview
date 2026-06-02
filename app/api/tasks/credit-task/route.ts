@@ -1,8 +1,6 @@
 // app/api/tasks/complete/route.ts
 import connectDB from '@/lib/db'
 import Task from '@/lib/model/task.model'
-import UserTaskLog from '@/lib/model/userTaskLog.model'
-import Transaction from '@/lib/model/transaction.model'
 import User from '@/lib/model/user.model'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/lib/next-auth-option'
@@ -13,30 +11,24 @@ export async function POST(req: Request) {
     await connectDB()
     const session = await getServerSession(nextauthOptions)
     const user = await User.findById(session?.user.id)
-    const { id } = await req.json()
+    const { title } = await req.json()
     if (!user) return NextResponse.json({ message: 'No user found!', status: 400 }, { status: 400 })
 
-    let userTaskLog = await Task.findById(id)
-
-    if (!userTaskLog) {
-      return NextResponse.json({ message: 'No task log found!', status: 400 })
-    }
-
-    if (userTaskLog.isClaimed === true) {
-      return NextResponse.json({ message: 'Task already claimed!', status: 400 }, { status: 400 })
-    }
-    user.wallet.balance += userTaskLog?.reward
-    user.wallet.totalEarned += userTaskLog?.reward
-    userTaskLog.isClaimed = true
-    await userTaskLog?.save()
-    await user.save()
-
-    await Transaction.create({
-      userId: user.id,
-      type: userTaskLog.title,
-      amount: userTaskLog?.reward,
+    let userTaskLog = await Task.create({
+      userId: user?.id,
+      title: title,
+      description: '',
+      type: title,
+      reward: 3000,
+      isClaimed: false,
     })
 
+    if (!userTaskLog) {
+      return NextResponse.json({
+        message: 'Something went wrong, please try again later!',
+        status: 400,
+      })
+    }
     return NextResponse.json(
       { message: 'Successfully completed task', status: 200 },
       { status: 200 },

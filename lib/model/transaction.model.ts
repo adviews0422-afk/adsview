@@ -13,7 +13,6 @@ const transactionSchema = new mongoose.Schema<ITransaction>(
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     type: {
       type: String,
-      enum: ['task', 'offer', 'referral', 'withdrawal'],
       required: true,
     },
     amount: { type: Number, required: true },
