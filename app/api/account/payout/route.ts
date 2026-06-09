@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import Transaction from '@/lib/model/transaction.model'
 import WithdrawalSettings from '@/lib/model/withdrawalsettings.model'
 export async function POST(req: NextRequest) {
-  const { email } = await req.json()
+  const { email, phone, method } = await req.json()
   const session = await getServerSession(nextauthOptions)
   if (!session?.user?.id) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
@@ -41,32 +41,32 @@ export async function POST(req: NextRequest) {
   const totalToWithdraw = fullUnits * convertionRate.convertion
   let payoutId
   try {
-    if (convertionRate.manual === false) {
-      const request = new paypal.payouts.PayoutsPostRequest()
-      request.requestBody({
-        sender_batch_header: {
-          sender_batch_id: `batch_${Date.now()}`,
-          email_subject: 'You got paid!',
-        },
-        items: [
-          {
-            recipient_type: 'EMAIL',
-            receiver: email,
-            amount: {
-              value: totalToWithdraw.toFixed(2),
-              currency: 'PHP',
-            },
-            note: 'Thanks for using our platform!',
-          },
-        ],
-      })
+    // if (convertionRate.manual === false && method === 'paypal') {
+    //   const request = new paypal.payouts.PayoutsPostRequest()
+    //   request.requestBody({
+    //     sender_batch_header: {
+    //       sender_batch_id: `batch_${Date.now()}`,
+    //       email_subject: 'You got paid!',
+    //     },
+    //     items: [
+    //       {
+    //         recipient_type: 'EMAIL',
+    //         receiver: email,
+    //         amount: {
+    //           value: totalToWithdraw.toFixed(2),
+    //           currency: 'PHP',
+    //         },
+    //         note: 'Thanks for using our platform!',
+    //       },
+    //     ],
+    //   })
 
-      const response = await client().execute(request)
-      payoutId = response.result?.batch_header?.payout_batch_id
-      if (!payoutId) {
-        return NextResponse.json({ message: 'Invalid PayPal response' }, { status: 500 })
-      }
-    }
+    //   const response = await client().execute(request)
+    //   payoutId = response.result?.batch_header?.payout_batch_id
+    //   if (!payoutId) {
+    //     return NextResponse.json({ message: 'Invalid PayPal response' }, { status: 500 })
+    //   }
+    // }
 
     user.wallet.balance -= amount
     user.wallet.totalWithdrawn += amount
@@ -75,11 +75,12 @@ export async function POST(req: NextRequest) {
     const withdrawal = await Withdrawal.create({
       userId: user._id,
       amount: totalToWithdraw,
-      method: 'manual',
+      method: method,
       paypalEmail: email,
+      phone: phone,
       coins: amount,
       status: 'pending',
-      payoutBatchId: convertionRate.manual ? '' : payoutId,
+      payoutBatchId: '',
     })
 
     await Transaction.create({
