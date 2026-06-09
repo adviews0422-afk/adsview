@@ -132,7 +132,6 @@ function Dashboard() {
                 <div className='flex flex-col gap-1'>
                   <Label size='sm'>{item.email || item.paypalEmail}</Label>
                   <Label size='xs'>Phone: {item.phone || 'N/A'}</Label>
-                  <Label size='xs'>Batch ID: {item.payoutBatchId}</Label>
                   <Label size='xs' className='text-gray-400 capitalize'>
                     Method: {item.method || 'paypal'}
                   </Label>
