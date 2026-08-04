@@ -48,15 +48,15 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    if (withdrawal.method !== 'manual') {
-      return NextResponse.json(
-        {
-          message: 'Only manual withdrawals can be marked as paid',
-          status: 400,
-        },
-        { status: 400 },
-      )
-    }
+    // if (withdrawal.method !== 'manual') {
+    //   return NextResponse.json(
+    //     {
+    //       message: 'Only manual withdrawals can be marked as paid',
+    //       status: 400,
+    //     },
+    //     { status: 400 },
+    //   )
+    // }
 
     if (withdrawal.status === 'paid') {
       return NextResponse.json(

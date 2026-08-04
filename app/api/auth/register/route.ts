@@ -12,9 +12,7 @@ import { ratelimit } from '@/lib/redis'
 export async function POST(req: NextRequest) {
   try {
     await connectDB()
-
     const ip = req.headers.get('x-forwarded-for') || 'unknown'
-
     const { success } = await ratelimit.limit(ip)
 
     if (!success) {

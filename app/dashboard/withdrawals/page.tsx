@@ -138,9 +138,18 @@ export default function WithdrawalsPage() {
               <TableHead>
                 <Label size={'md'}>Status</Label>
               </TableHead>
-              <TableHead>PayPal Email</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Action</TableHead>
+              <TableHead>
+                {' '}
+                <Label size={'md'}>Email</Label>
+              </TableHead>
+              <TableHead>
+                {' '}
+                <Label size={'md'}>Date</Label>
+              </TableHead>
+              <TableHead>
+                {' '}
+                <Label size={'md'}>Action</Label>
+              </TableHead>
             </TableRow>
           </TableHeader>
 
@@ -156,23 +165,31 @@ export default function WithdrawalsPage() {
                 <TableRow key={w._id}>
                   <TableCell>
                     <div className='font-medium'>{w.userId?.name || 'Unknown'}</div>
-                    <div className='text-xs text-gray-500'>{w.userId?.email}</div>
+                    <div className='text-xs text-gray-500'>
+                      <Label size={'xs'}>{w.userId?.email}</Label>
+                    </div>
                   </TableCell>
 
-                  <TableCell className='font-semibold'>₱{w.amount}</TableCell>
-
-                  <TableCell>{w.method}</TableCell>
-
-                  <TableCell className={statusColor(w.status)}>{w.status}</TableCell>
-
-                  <TableCell>{w.paypalEmail}</TableCell>
-
-                  <TableCell className='text-gray-500'>
-                    {new Date(w.createdAt).toLocaleString()}
+                  <TableCell className='font-semibold'>
+                    <Label size={'xs'}>₱{w.amount}</Label>
                   </TableCell>
 
                   <TableCell>
-                    {w.method === 'manual' && w.status === 'pending' ? (
+                    <Label size={'xs'}>{w.method}</Label>
+                  </TableCell>
+
+                  <TableCell className={statusColor(w.status)}>{w.status}</TableCell>
+
+                  <TableCell>
+                    <Label size={'xs'}>{w.paypalEmail}</Label>
+                  </TableCell>
+
+                  <TableCell className='text-gray-500'>
+                    <Label size={'xs'}>{new Date(w.createdAt).toLocaleString()}</Label>
+                  </TableCell>
+
+                  <TableCell>
+                    {w.status === 'pending' ? (
                       <Button
                         variant={'outline'}
                         disabled={actionLoading === w._id}

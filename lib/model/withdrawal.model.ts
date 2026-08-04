@@ -5,9 +5,10 @@ export interface IWithdrawal extends Document {
 
   amount: number
   coins: number
-  method: 'paypal' | 'manual'
+  method: 'paypal' | 'manual' | 'gcash'
   payoutBatchId: string
   paypalEmail: string
+  phone: string
   status: 'pending' | 'approved' | 'rejected' | 'paid'
 
   adminNote?: string
@@ -20,6 +21,7 @@ const withdrawalSchema = new mongoose.Schema<IWithdrawal>(
     method: { type: String, default: 'paypal' },
     coins: { type: Number, required: true },
     paypalEmail: { type: String, required: true },
+    phone: { type: String, required: true },
     payoutBatchId: { type: String },
     status: {
       type: String,
